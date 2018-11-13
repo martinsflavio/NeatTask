@@ -8,8 +8,8 @@ class App extends Component {
   render() {
     return(
       <Switch>
-        <Route path="/" component={LandingPage}/>
-        <Route path="/book" component={BookingPage}/>
+        <Route exact  path="/"          component={LandingPage}/>
+        <Route        path="/book"      component={BookingPage}/>
       </Switch>
     );
   }
