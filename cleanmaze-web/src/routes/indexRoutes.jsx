@@ -1,7 +1,10 @@
 import LandingPage from "../views/LandingPage/LandingPage";
+import BookingPage from "../views/BookingPage/BookingPage";
+
 
 const indexRoutes = [
-  {path: "landing-page", name: "LandingPage", component: LandingPage},
+  { exact: true,  path: "/",        name: "LandingPage", component: LandingPage },
+  { exact: false, path: "/booking", name: "BookingPage", component: BookingPage }
 ];
 
 export default indexRoutes;
