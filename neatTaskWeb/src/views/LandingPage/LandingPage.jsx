@@ -1,13 +1,25 @@
 import React, { Component } from "react";
 
-import style from "./landingPage.module.css";
+// styled components
+import Header from "../../components/Header/Header";
+
+// sections of this page
+import Product from "./Sections/Product";
+import CostumersReviews from "./Sections/CostumerReviews";
+import HowWeWork from "./Sections/HowWeWork";
+import TopCleaners from "./Sections/TopCleaners";
+
 
 class LandingPage extends Component {
   render() {
 
     return (
-      <div className={style.landingPageBlue}>
-        LandingPage
+      <div>
+        <Header />
+        <Product />
+        <HowWeWork />
+        <CostumersReviews />
+        <TopCleaners />
       </div>
     )
   }
