@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-import style from "./bookingPage.module.css";
+import classes from "./bookingPage.module.scss";
 
 class BookingPage extends Component {
   render() {
     return (
-      <div className={style.bookingBlue}>
+      <div className={classes.title}>
         BookingPage
       </div>
     )

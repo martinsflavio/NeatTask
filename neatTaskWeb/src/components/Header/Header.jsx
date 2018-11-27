@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -9,11 +7,10 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 // styles
-import headerStyles from "./headerStyle";
+import classes from "./header.module.scss";
 
-class ButtonAppBar extends Component {
+class Header extends Component {
   render() {
-    const {classes} = this.props;
 
     return (
       <div className={classes.root}>
@@ -23,7 +20,7 @@ class ButtonAppBar extends Component {
               <MenuIcon/>
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              News
+              NeatTask App
             </Typography>
             <Button color="inherit">Login</Button>
           </Toolbar>
@@ -33,8 +30,4 @@ class ButtonAppBar extends Component {
   }
 }
 
-ButtonAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(headerStyles)(ButtonAppBar);
+export default Header;
