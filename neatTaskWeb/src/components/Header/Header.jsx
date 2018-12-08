@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import PropTypes from "prop-types";
+import withStyles from "@material-ui/core/styles/withStyles";
+
+// material-ui core
+import { AppBar, Toolbar, Typography, Button, IconButton } from "@material-ui/core/";
+import MenuIcon from "@material-ui/icons/Menu";
 
 // styles
-import headerStyles from "./headerStyle";
+import styles from "./headerStyle";
 
 class ButtonAppBar extends Component {
   render() {
@@ -17,13 +15,13 @@ class ButtonAppBar extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar  color="secondary" position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon/>
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              News
+              NeatTask
             </Typography>
             <Button color="inherit">Login</Button>
           </Toolbar>
@@ -37,4 +35,6 @@ ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(headerStyles)(ButtonAppBar);
+
+
+export default withStyles(styles)(ButtonAppBar);
