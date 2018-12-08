@@ -1,15 +1,14 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 
 // styled components
-import BookingForm from "../../../containers/BookingForm/BookingForm";
+import { BookingForm } from "../../../containers";
 
 const Product = (props) => {
 
   return (
-    <Fragment>
+    <div>
       <BookingForm />
-    </Fragment>
+    </div>
   );
 };
 

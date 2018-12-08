@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 
 const style = {
   grid: {
+    border: "1px solid blue",
     position: "relative",
     width: "100%",
     minHeight: "1px",

@@ -1,10 +1,14 @@
-import React, { Component } from "react";
-
-// material-ui core
+import React, { Component, Fragment } from "react";
+import withStyles from "@material-ui/core/styles/withStyles";
 
 // styled components
-import Header from "../../components/Header/Header";
-import { GridItem, GridContainer } from "../../components/Grid";
+import { Header, GridContainer, GridItem } from "../../components";
+
+// style
+import styles from "./landingPageStyle";
+
+// banner img
+import bannerImg from "../../assets/img/landingBg.jpg"
 
 // sections of this page
 import Product from "./Sections/Product";
@@ -12,33 +16,33 @@ import CostumersReviews from "./Sections/CostumerReviews";
 import HowWeWork from "./Sections/HowWeWork";
 import TopCleaners from "./Sections/TopCleaners";
 
-import landingBg from "../../assets/img/landingBg.jpg";
-
 class LandingPage extends Component {
   render() {
+    const { classes } = this.props;
 
     return (
-      <div>
+      <Fragment>
         <Header />
-        <div>
-          <img src={landingBg}/>
-        </div>
         <GridContainer direction="row" justify="center" alignItems="flex-start">
-
+          <div className={classes.banner}>
+            <img alt="banner" src={ bannerImg }/>
+          </div>
+          <GridItem xs={12} >
             <Product />
-
+          </GridItem>
+          <GridItem xs={12} >
+            <HowWeWork/>
+          </GridItem>
+          <GridItem xs={12} >
+            <CostumersReviews />
+          </GridItem>
+          <GridItem xs={12} >
+            <TopCleaners />
+          </GridItem>
         </GridContainer>
-
-
-
-        <HowWeWork/>
-
-        <CostumersReviews />
-
-        <TopCleaners />
-      </div>
+      </Fragment>
     )
   }
 }
 
-export default LandingPage;
+export default withStyles(styles)(LandingPage);
