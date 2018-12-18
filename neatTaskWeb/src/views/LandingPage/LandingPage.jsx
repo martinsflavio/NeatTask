@@ -4,7 +4,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // styled components
 import { Header, GridContainer, GridItem } from "../../components";
 
-// style
+// Jss
 import styles from "./landingPageStyle";
 
 // banner img

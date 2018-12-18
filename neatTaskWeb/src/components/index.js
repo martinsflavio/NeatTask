@@ -1,11 +1,11 @@
-import GridContainer from "./Grid/GridContainer";
-import GridItem from "./Grid/GridItem";
-import Header from "./Header/HeaderStyled";
-import Button from "./Button/ButtonStyled";
+import GridContainer from "./Grid/GridContainer.jsx";
+import GridItem from "./Grid/GridItem.jsx";
+import Header from "./Header/HeaderStyled.jsx";
+import ButtonFullWidth from "./Button/ButtonFullWidth.jsx";
 
 export {
   GridItem,
   GridContainer,
   Header,
-  Button
+  ButtonFullWidth
 };
