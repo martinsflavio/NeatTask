@@ -12,9 +12,6 @@ import { ButtonFullWidth } from "../../components";
 // Jss
 import styles from "./style.js";
 
-//TODO: abstracting list of beds to backend
-const optionsList = [0,1,2,3,4,5,6,7,8,9,10];
-
 class BookingForm extends Component {
   state = {
     isFormValid: false,
@@ -25,10 +22,12 @@ class BookingForm extends Component {
       },
       beds: {
         value:"",
+        nBeds: [0,1,2,3,4,5,6,7,8,9,10],
         error: null
       },
       baths: {
         value:"",
+        nBaths: [0,1,2,3,4,5,6,7,8,9,10],
         error: null
       },
       date: {
@@ -110,7 +109,7 @@ class BookingForm extends Component {
           variant="outlined"
           fullWidth
         >
-          {optionsList.map(option => (
+          {formData.beds.nBeds.map(option => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
@@ -135,7 +134,7 @@ class BookingForm extends Component {
           variant="outlined"
           fullWidth
         >
-          {optionsList.map(option => (
+          {formData.baths.nBaths.map(option => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
