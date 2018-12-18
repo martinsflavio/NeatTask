@@ -6,8 +6,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { AppBar, Toolbar, Typography, Button, IconButton } from "@material-ui/core/";
 import MenuIcon from "@material-ui/icons/Menu";
 
-// styles
-import styles from "./style";
+// Jss
+import styles from "./style.js";
 
 class ButtonAppBar extends Component {
   render() {
