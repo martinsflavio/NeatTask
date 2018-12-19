@@ -1,20 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-//utils
-import objDeepCopy from "../../utils/objDeepCopy.js";
-import validations from "../../utils/formValidation/validationRules.js";
-import * as inputType from "../../utils/formValidation/inputType.js";
-// material-ui core
 import { MenuItem, TextField } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
+import objDeepCopy from "../../utils/objDeepCopy.js";
+import makeFormObjIterable from "../../utils/formValidation/makeFormObjIterable.js";
+import inputValidator from "../../utils/formValidation/validationRules.js";
+import * as inputType from "../../utils/formValidation/inputType.js";
 // styled components
 import { ButtonFullWidth } from "../../components";
-// Jss
 import styles from "./style.js";
 
 class BookingForm extends Component {
   state = {
-    isFormValid: false,
+    isFormValid: true,
     formData: {
       zipCode: {
         value:"",
@@ -23,52 +21,59 @@ class BookingForm extends Component {
       beds: {
         value:"",
         nBeds: [0,1,2,3,4,5,6,7,8,9,10],
-        error: null
+        error: false
       },
       baths: {
         value:"",
         nBaths: [0,1,2,3,4,5,6,7,8,9,10],
-        error: null
+        error: false
       },
       date: {
         value:"2018-12-17",
-        error: null
+        error: false
       },
       time: {
         value:"07:30",
-        error: null
+        error: false
       },
       email: {
         value: "",
-        error: null
+        error: false
       }
     }
   };
 
-  handleChange = input => event => {
+  handleChange = inputField => e => {
     let newState = objDeepCopy(this.state);
 
-    newState.formData[input].value = event.target.value;
+    newState.formData[inputField].value = e.target.value;
 
     this.setState({
       ...newState
     });
   };
-
-  handleValidation = (dataType) => {
+  handleInputValidation = (inputField) => () => {
     const newState = objDeepCopy(this.state);
-    const value = newState.formData[dataType].value;
+    const value = newState.formData[inputField].value;
 
-    newState.formData[dataType].error = !validations(dataType, value);
+    newState.formData[inputField].error = !inputValidator(inputField, value);
 
-    this.setState({
-      ...newState
-    });
   };
-
+  handleFormValidation = () => {
+    const newObj = makeFormObjIterable(objDeepCopy(this.state).formData);
+    for (const input of newObj) {
+      console.log(input);
+    }
+  };
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+
+    if (this.state.isFormValid) {
+      console.log(this.state.formData);
+    } else {
+      console.log("ERROR: Please check the RED fields for errors.")
+    }
+
   };
 
   render() {
@@ -87,7 +92,7 @@ class BookingForm extends Component {
           className={classes.textField}
           value={formData.zipCode.value}
           onChange={this.handleChange(inputType.zipCode)}
-          onBlur={() => {this.handleValidation(inputType.zipCode)}}
+          onBlur={this.handleInputValidation(inputType.zipCode)}
           error={formData.zipCode.error}
         />
 
@@ -186,7 +191,7 @@ class BookingForm extends Component {
           className={classes.textField}
           value={formData.email.value}
           onChange={this.handleChange(inputType.email)}
-          onBlur={() => {this.handleValidation(inputType.email)}}
+          onBlur={this.handleInputValidation(inputType.email)}
           error={formData.email.error}
         />
 
@@ -197,7 +202,7 @@ class BookingForm extends Component {
           onClick={e => this.handleSubmit(e)}>
           Submit
         </ButtonFullWidth>
-        </form>
+      </form>
     );
   }
 }
