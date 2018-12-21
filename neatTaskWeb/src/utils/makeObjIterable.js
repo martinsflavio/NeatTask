@@ -1,6 +1,6 @@
-import objDeepCopy from "../objDeepCopy";
+import objDeepCopy from "./objDeepCopy";
 
-const makeFormObjIterable = formObj => {
+const makeObjIterable = formObj => {
   const newObj = objDeepCopy(formObj);
 
   newObj[Symbol.iterator] = () => {
@@ -34,4 +34,4 @@ const makeFormObjIterable = formObj => {
   return newObj;
 };
 
-export default makeFormObjIterable;
+export default makeObjIterable;

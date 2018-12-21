@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { MenuItem, TextField } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import objDeepCopy from "../../utils/objDeepCopy.js";
-import makeFormObjIterable from "../../utils/formValidation/makeFormObjIterable.js";
+import makeObjIterable from "../../utils/makeObjIterable.js";
 import inputValidator from "../../utils/formValidation/validationRules.js";
 import * as inputType from "../../utils/formValidation/inputType.js";
 // styled components
@@ -29,11 +29,11 @@ class BookingForm extends Component {
         error: false
       },
       date: {
-        value:"2018-12-17",
+        value:"",
         error: false
       },
       time: {
-        value:"07:30",
+        value:"",
         error: false
       },
       email: {
@@ -58,9 +58,11 @@ class BookingForm extends Component {
 
     newState.formData[inputField].error = !inputValidator(inputField, value);
 
+    this.setState({...newState});
+
   };
   handleFormValidation = () => {
-    const newObj = makeFormObjIterable(objDeepCopy(this.state).formData);
+    const newObj = makeObjIterable(objDeepCopy(this.state).formData);
     for (const input of newObj) {
       console.log(input);
     }
@@ -88,12 +90,12 @@ class BookingForm extends Component {
           label="Zip Code"
           margin="normal"
           variant="outlined"
-          fullWidth
+          fullWidth autoFocus required
           className={classes.textField}
-          value={formData.zipCode.value}
+          value={formData[inputType.zipCode].value}
+          error={formData[inputType.zipCode].error}
           onChange={this.handleChange(inputType.zipCode)}
           onBlur={this.handleInputValidation(inputType.zipCode)}
-          error={formData.zipCode.error}
         />
 
         {/* Beds */}
@@ -101,18 +103,20 @@ class BookingForm extends Component {
           id="outlined-select-beds"
           select
           label="Beds"
+          margin="normal"
+          variant="outlined"
+          fullWidth
           className={classes.textField}
-          value={formData.beds.value}
-          onChange={this.handleChange("beds")}
           SelectProps={{
             MenuProps: {
               className: classes.menu,
             },
           }}
           helperText="Please select the number of beds"
-          margin="normal"
-          variant="outlined"
-          fullWidth
+          value={formData[inputType.beds].value}
+          error={formData[inputType.beds].error}
+          onChange={this.handleChange(inputType.beds)}
+          onBlur={this.handleInputValidation(inputType.beds)}
         >
           {formData.beds.nBeds.map(option => (
             <MenuItem key={option} value={option}>
@@ -124,20 +128,21 @@ class BookingForm extends Component {
         {/* Baths */}
         <TextField
           id="outlined-select-baths"
-          select
+          select fullWidth
           label="Baths"
+          margin="normal"
+          variant="outlined"
           className={classes.textField}
-          value={formData.baths.value}
-          onChange={this.handleChange("baths")}
+          value={formData[inputType.baths].value}
           SelectProps={{
             MenuProps: {
               className: classes.menu,
             },
           }}
           helperText="Please select the number of baths"
-          margin="normal"
-          variant="outlined"
-          fullWidth
+          error={formData[inputType.baths].error}
+          onChange={this.handleChange(inputType.baths)}
+          onBlur={this.handleInputValidation(inputType.baths)}
         >
           {formData.baths.nBaths.map(option => (
             <MenuItem key={option} value={option}>
@@ -151,15 +156,17 @@ class BookingForm extends Component {
           id="date"
           label="Date"
           type="date"
-          defaultValue={formData.date.value}
+          margin="normal"
+          variant="outlined"
+          fullWidth
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={this.handleChange("date")}
-          margin="normal"
-          variant="outlined"
-          fullWidth
+          defaultValue={formData[inputType.date].value}
+          error={formData[inputType.date].error}
+          onChange={this.handleChange(inputType.date)}
+          onBlur={this.handleInputValidation(inputType.date)}
         />
 
         {/* Time */}
@@ -167,7 +174,9 @@ class BookingForm extends Component {
           id="time"
           label="Time"
           type="time"
-          defaultValue={formData.time.value}
+          margin="normal"
+          variant="outlined"
+          fullWidth
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
@@ -175,10 +184,10 @@ class BookingForm extends Component {
           inputProps={{
             step: 300, // 5 min
           }}
-          onChange={this.handleChange("time")}
-          margin="normal"
-          variant="outlined"
-          fullWidth
+          defaultValue={formData[inputType.time].value}
+          error={formData[inputType.time].error}
+          onChange={this.handleChange(inputType.time)}
+          onBlur={this.handleInputValidation(inputType.time)}
         />
 
         {/* email */}
@@ -189,10 +198,10 @@ class BookingForm extends Component {
           variant="outlined"
           fullWidth
           className={classes.textField}
-          value={formData.email.value}
+          value={formData[inputType.email].value}
+          error={formData[inputType.email].error}
           onChange={this.handleChange(inputType.email)}
           onBlur={this.handleInputValidation(inputType.email)}
-          error={formData.email.error}
         />
 
         <ButtonFullWidth
