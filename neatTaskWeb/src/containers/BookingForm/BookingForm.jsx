@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { MenuItem, TextField } from "@material-ui/core";
+
 import withStyles from "@material-ui/core/styles/withStyles";
 import objDeepCopy from "../../utils/objDeepCopy.js";
 import makeObjIterable from "../../utils/makeObjIterable.js";
+// form validation
 import inputValidator from "../../utils/formValidation/validationRules.js";
 import * as inputType from "../../utils/formValidation/inputType.js";
 // styled components
@@ -40,7 +42,7 @@ class BookingForm extends Component {
         value: "",
         error: false
       }
-    }
+    },
   };
 
   handleChange = inputField => e => {

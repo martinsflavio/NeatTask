@@ -59,7 +59,7 @@ const validations = {
   isNumber: value => validations.matchRegexp(value, /^-?[0-9]\d*(\d+)?$/i),
 
   isFloat: value => validations.matchRegexp(value, /^(?:[1-9]\d*|0)?(?:\.\d+)?$/i),
-
+  // TODO PASSING RANGE DYNAMICALLY
   isInThisRange: function (value, min, max) {
     return (
       this.isNumber(value) &&
@@ -67,13 +67,10 @@ const validations = {
       this.minNumber(value, min)
     );
   },
-  //TODO CHECK DATE IN THE PAST
+
   isDate: function (value) {
-    let objDate,  // date object initialized from the value string
-        mSeconds, // value in milliseconds
-        day,      // day
-        month,    // month
-        year;     // year
+    let objDate, mSeconds, currentDate, day, month, year;
+
     // date length should be 10 characters (no more no less)
     if (value.length !== 10) {
       return false;
@@ -99,11 +96,54 @@ const validations = {
     objDate.setTime(mSeconds);
     // compare input date and parts from Date() object
     // if difference exists then date isn't valid
-
-    //TODO CHECK FOR DATE IN THE PAST HERE
     if (objDate.getFullYear() !== year ||
-      objDate.getMonth() !== month ||
-      objDate.getDate() !== day) {
+        objDate.getMonth() !== month ||
+        objDate.getDate() !== day) {
+      return false;
+    }
+    // checks if the input date is in the past
+    currentDate = new Date();
+    if (currentDate.getFullYear() > year ||
+        currentDate.getMonth() > month ||
+        currentDate.getDate() > day) {
+      return false;
+    }
+    // otherwise return true
+    return true;
+  },
+
+  isTime: function (value) {
+    //value = "00:60";
+
+    let hours, minutes, currentMinutes, currentHours, objDate;
+
+    objDate = new Date();
+    currentHours   = objDate.getHours();
+    currentMinutes = objDate.getMinutes();
+
+    if (!this.isString(value)) {
+      return false;
+    }
+    // expected format is 00:00 - 24H
+    if (value.length !== 5 || value.substring(2,3) !== ":") {
+      return false;
+    }
+    // subtraction will cast variables to integer implicitly (needed
+    // for !== comparing)
+    hours = value.substring(0,2) - 0;
+    minutes = value.substring(3,5) - 0;
+    // test hours range
+    if (!this.isNumber(hours) || !this.isInThisRange(hours, 0, 23)) {
+      return false;
+    }
+    // test minutes range
+    if (!this.isNumber(minutes) || !this.isInThisRange(minutes, 0, 60)) {
+      return false;
+    }
+    // check for time in the past
+    if (hours < currentHours) {
+      return false;
+    } else if (minutes < currentMinutes) {
       return false;
     }
     // otherwise return true
@@ -118,7 +158,7 @@ const validator = (type, value) => {
     case inputType.beds:    return validations.isInThisRange(value, 0, 10);
     case inputType.baths:   return validations.isInThisRange(value, 0, 10);
     case inputType.date:    return validations.isDate(value);
-    case inputType.time:    return validations.required(value);
+    case inputType.time:    return validations.isTime(value);
     default: return value;
   }
 };
