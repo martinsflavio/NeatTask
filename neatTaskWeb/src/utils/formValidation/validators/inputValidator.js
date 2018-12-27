@@ -1,25 +1,25 @@
-import * as inputType from "./inputTypes";
-import validationRules from "./validationRules/validationRules.js";
-
+import * as inputType from "../constantTypes/inputTypes";
+import rules from "../rules/rules.js";
 
 const validate = inputObj => {
   let resultArray = [];
   const { validations, value }= inputObj;
 
-
   if (Array.isArray(validations)) {
     validations.forEach(validation => {
-      console.log(validation);
-      resultArray.push(validationRules[validation](value));
+      // checks if array current index is an object
+      if (typeof validation === "object" && validation !== null) {
+        let key = Object.keys(validation)[0], v = validation[key];
+
+        resultArray.push(rules[key](value, v));
+      } else {
+        resultArray.push(rules[validation](value));
+      }
+
     });
   }
-
-
-
-  console.log(resultArray);
   return resultArray.every( item => item === true);
 };
-
 
 const inputValidator = (type, inputObj) => {
   switch (type) {

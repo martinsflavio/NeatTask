@@ -5,11 +5,10 @@ import { MenuItem, TextField } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import objDeepCopy from "../../utils/objDeepCopy.js";
 // form validation
-import { inputTypes, inputValidator, formValidator } from "../../utils/formValidation";
+import { inputTypes, rulesTypes, inputValidator, formValidator } from "../../utils/formValidation";
 // styled components
 import { ButtonFullWidth } from "../../components";
 import styles from "./style.js";
-import {zipCode} from "../../utils/formValidation/inputTypes";
 
 class BookingForm extends Component {
   state = {
@@ -18,33 +17,49 @@ class BookingForm extends Component {
       zipCode: {
         value:"",
         isValid: true,
-        validations: ["required","isZipCode"]
+        validations: [
+          rulesTypes.required,
+          rulesTypes.isZipCode
+        ]
       },
       beds: {
         value:"",
         nBeds: [0,1,2,3,4,5,6,7,8,9,10],
         isValid: true,
-        validations: ["required", {isRange:{max: 10, min: 0}}]
+        validations: [
+          rulesTypes.required,
+          {[rulesTypes.isRange]: {max: 10, min: 0}}]
       },
       baths: {
         value:"",
         nBaths: [0,1,2,3,4,5,6,7,8,9,10],
-        isValid: true
+        isValid: true,
+        validations: [rulesTypes.required,
+          {[rulesTypes.isRange]: {max: 10, min: 0}}]
       },
       date: {
         value:"",
         isValid: true,
-        validations: ["required", "isDate"]
+        validations: [
+          rulesTypes.required,
+          rulesTypes.isDate
+        ]
       },
       time: {
         value:"",
         isValid: true,
-        validations: ["required", "isTime"]
+        validations: [
+          rulesTypes.required,
+          rulesTypes.isTime
+        ]
       },
       email: {
         value: "",
         isValid: true,
-        validations: ["required", "isEmail"]
+        validations: [
+          rulesTypes.required,
+          rulesTypes.isEmail
+        ]
       }
     },
   };
@@ -68,13 +83,14 @@ class BookingForm extends Component {
 
   };
   handleSubmit = e => {
-    let isFormValid = null;
     e.preventDefault();
   };
 
   render() {
     const { classes } = this.props;
     const { formData } = this.state;
+
+
 
     return (
       <form className={classes.container} autoComplete="off">
