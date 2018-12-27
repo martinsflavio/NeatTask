@@ -1,35 +1,38 @@
 import objDeepCopy from "./objDeepCopy";
 
-const makeObjIterable = formObj => {
-  const newObj = objDeepCopy(formObj);
+const makeObjIterable = obj => {
+  let newObj;
+  if (obj === null || obj === undefined || typeof obj !== "object" || Array.isArray(obj)) {
+   newObj = obj;
+  } else {
+    newObj = objDeepCopy(obj);
+    newObj[Symbol.iterator] = () => {
+      const key  = Object.keys(newObj);
+      const value  = Object.values(newObj);
+      let currentKeyIndex = 0;
 
-  newObj[Symbol.iterator] = () => {
-    const inputTitles  = Object.keys(newObj);
-    const inputValues  = Object.values(newObj);
-    let currentInputTitleIndex = 0;
+      return {
+        next () {
+          let index = currentKeyIndex;
+          const obj = {key: key[index], value:value[index]};
+          currentKeyIndex++;
 
-    return {
-      next () {
-        const thisTitleObj = inputValues[currentInputTitleIndex];
-        currentInputTitleIndex++;
+          if (index < key.length) {
+            return {
+              value: obj,
+              done: false
+            }
+          }
 
-        const doNotHaveMoreInputs = !(currentInputTitleIndex < inputTitles.length);
-
-        if (doNotHaveMoreInputs) {
           return {
             value: undefined,
             done: true
           };
         }
-
-        return {
-          value: {input: inputTitles[currentInputTitleIndex], payload: thisTitleObj},
-          done: false
-        }
       }
-    }
 
-  };
+    };
+  }
 
   return newObj;
 };
