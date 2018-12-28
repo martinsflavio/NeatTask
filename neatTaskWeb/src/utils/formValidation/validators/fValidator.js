@@ -7,9 +7,11 @@ const formValidator = form => {
   let formBoolList = [];
 
   for (let input of iterableForm) {
-      formBoolList.push(inputValidator(input.key, input.value.value))
+    let { key } = input, { value } = input;
+      console.log(key, value);
+      formBoolList.push(inputValidator(key, value))
   }
-  console.log(formBoolList)
+  console.log(formBoolList);
   return formBoolList.every(item => item === true);
 };
 
