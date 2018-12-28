@@ -5,7 +5,7 @@ import { MenuItem, TextField } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import objDeepCopy from "../../utils/objDeepCopy.js";
 // form validation
-import { inputTypes, rulesTypes, inputValidator, formValidator } from "../../utils/formValidation";
+import { iTypes, rulesTypes, iValidator, fValidator } from "../../utils/formValidation";
 // styled components
 import { ButtonFullWidth } from "../../components";
 import styles from "./style.js";
@@ -16,7 +16,9 @@ class BookingForm extends Component {
     formData: {
       zipCode: {
         value:"",
-        isValid: true,
+        isValid: false,
+        error: false,
+        errorMessage: "Please valid zip code required.",
         validations: [
           rulesTypes.required,
           rulesTypes.isZipCode
@@ -24,22 +26,25 @@ class BookingForm extends Component {
       },
       beds: {
         value:"",
+        isValid: false,
         nBeds: [0,1,2,3,4,5,6,7,8,9,10],
-        isValid: true,
-        validations: [
-          rulesTypes.required,
-          {[rulesTypes.isRange]: {max: 10, min: 0}}]
+        error: false,
+        errorMessage: "",
+        validations: [{[rulesTypes.isRange]: {max: 10, min: 0}}]
       },
       baths: {
         value:"",
+        isValid: false,
         nBaths: [0,1,2,3,4,5,6,7,8,9,10],
-        isValid: true,
-        validations: [rulesTypes.required,
-          {[rulesTypes.isRange]: {max: 10, min: 0}}]
+        error: false,
+        errorMessage: "",
+        validations: [{[rulesTypes.isRange]: {max: 10, min: 0}}]
       },
       date: {
         value:"",
-        isValid: true,
+        isValid: false,
+        error: false,
+        errorMessage: "Invalid Date",
         validations: [
           rulesTypes.required,
           rulesTypes.isDate
@@ -47,7 +52,9 @@ class BookingForm extends Component {
       },
       time: {
         value:"",
-        isValid: true,
+        isValid: false,
+        error: false,
+        errorMessage: "Invalid Time",
         validations: [
           rulesTypes.required,
           rulesTypes.isTime
@@ -55,7 +62,9 @@ class BookingForm extends Component {
       },
       email: {
         value: "",
-        isValid: true,
+        isValid: false,
+        error: false,
+        errorMessage: "Invalid Email",
         validations: [
           rulesTypes.required,
           rulesTypes.isEmail
@@ -68,29 +77,31 @@ class BookingForm extends Component {
     let newState = objDeepCopy(this.state);
 
     newState.formData[inputField].value = e.target.value;
-
-    this.setState({
-      ...newState
-    });
+    this.setState({...newState});
   };
   handleInputValidation = (inputFieldType) => () => {
-    const newState = objDeepCopy(this.state);
-    const inputObj = newState.formData[inputFieldType];
+    const newState          = objDeepCopy(this.state);
+    const validatedInputObj = iValidator(inputFieldType, newState.formData[inputFieldType]);
 
-    newState.formData[inputFieldType].isValid = inputValidator(inputFieldType, inputObj);
-
+    newState.formData[inputFieldType] = {...validatedInputObj};
     this.setState({...newState});
-
   };
   handleSubmit = e => {
     e.preventDefault();
+    let newState = objDeepCopy(this.state);
+   const { isFormValid, validatedForm } = fValidator(newState.formData);
+
+   newState.formData = {...validatedForm};
+   newState.isFormValid = isFormValid;
+
+   console.log(newState);
+
+   this.setState({...newState});
   };
 
   render() {
     const { classes } = this.props;
     const { formData } = this.state;
-
-
 
     return (
       <form className={classes.container} autoComplete="off">
@@ -102,10 +113,14 @@ class BookingForm extends Component {
           variant="outlined"
           required fullWidth
           className={classes.textField}
-          value={formData[inputTypes.zipCode].value}
-          error={!formData[inputTypes.zipCode].isValid}
-          onChange={this.handleChange(inputTypes.zipCode)}
-          onBlur={this.handleInputValidation(inputTypes.zipCode)}
+          value={formData[iTypes.zipCode].value}
+          error={formData[iTypes.zipCode].error}
+          helperText={
+            formData[iTypes.zipCode].error ?
+              formData[iTypes.zipCode].errorMessage : null
+          }
+          onChange={this.handleChange(iTypes.zipCode)}
+          onBlur={this.handleInputValidation(iTypes.zipCode)}
         />
 
         {/* Beds */}
@@ -114,18 +129,21 @@ class BookingForm extends Component {
           label="Beds"
           margin="normal"
           variant="outlined"
-          required select fullWidth
+          select fullWidth
           className={classes.textField}
           SelectProps={{
             MenuProps: {
               className: classes.menu,
             },
           }}
-          helperText="Please select the number of beds"
-          value={formData[inputTypes.beds].value}
-          error={!formData[inputTypes.beds].isValid}
-          onChange={this.handleChange(inputTypes.beds)}
-          onBlur={this.handleInputValidation(inputTypes.beds)}
+          value={formData[iTypes.beds].value}
+          error={formData[iTypes.beds].error}
+          helperText={
+            formData[iTypes.beds].error ?
+              formData[iTypes.beds].errorMessage : null
+          }
+          onChange={this.handleChange(iTypes.beds)}
+          onBlur={this.handleInputValidation(iTypes.beds)}
         >
           {formData.beds.nBeds.map(option => (
             <MenuItem key={option} value={option}>
@@ -140,18 +158,21 @@ class BookingForm extends Component {
           label="Baths"
           margin="normal"
           variant="outlined"
-          helperText="Please select the number of baths"
-          required select fullWidth
+          select fullWidth
           className={classes.textField}
-          value={formData[inputTypes.baths].value}
+          value={formData[iTypes.baths].value}
           SelectProps={{
             MenuProps: {
               className: classes.menu,
             },
           }}
-          error={!formData[inputTypes.baths].isValid}
-          onChange={this.handleChange(inputTypes.baths)}
-          onBlur={this.handleInputValidation(inputTypes.baths)}
+          error={formData[iTypes.baths].error}
+          helperText={
+            formData[iTypes.baths].error ?
+              formData[iTypes.baths].errorMessage : null
+          }
+          onChange={this.handleChange(iTypes.baths)}
+          onBlur={this.handleInputValidation(iTypes.baths)}
         >
           {formData.baths.nBaths.map(option => (
             <MenuItem key={option} value={option}>
@@ -172,10 +193,14 @@ class BookingForm extends Component {
           InputLabelProps={{
             shrink: true,
           }}
-          defaultValue={formData[inputTypes.date].value}
-          error={!formData[inputTypes.date].isValid}
-          onChange={this.handleChange(inputTypes.date)}
-          onBlur={this.handleInputValidation(inputTypes.date)}
+          defaultValue={formData[iTypes.date].value}
+          error={formData[iTypes.date].error}
+          helperText={
+            formData[iTypes.date].error ?
+              formData[iTypes.date].errorMessage : null
+          }
+          onChange={this.handleChange(iTypes.date)}
+          onBlur={this.handleInputValidation(iTypes.date)}
         />
 
         {/* Time */}
@@ -193,10 +218,14 @@ class BookingForm extends Component {
           inputProps={{
             step: 300, // 5 min
           }}
-          defaultValue={formData[inputTypes.time].value}
-          error={!formData[inputTypes.time].isValid}
-          onChange={this.handleChange(inputTypes.time)}
-          onBlur={this.handleInputValidation(inputTypes.time)}
+          defaultValue={formData[iTypes.time].value}
+          error={formData[iTypes.time].error}
+          helperText={
+            formData[iTypes.time].error ?
+              formData[iTypes.time].errorMessage : null
+          }
+          onChange={this.handleChange(iTypes.time)}
+          onBlur={this.handleInputValidation(iTypes.time)}
         />
 
         {/* email */}
@@ -207,10 +236,14 @@ class BookingForm extends Component {
           variant="outlined"
           required fullWidth
           className={classes.textField}
-          value={formData[inputTypes.email].value}
-          error={!formData[inputTypes.email].isValid}
-          onChange={this.handleChange(inputTypes.email)}
-          onBlur={this.handleInputValidation(inputTypes.email)}
+          value={formData[iTypes.email].value}
+          error={formData[iTypes.email].error}
+          helperText={
+            formData[iTypes.email].error ?
+              formData[iTypes.email].errorMessage : null
+          }
+          onChange={this.handleChange(iTypes.email)}
+          onBlur={this.handleInputValidation(iTypes.email)}
         />
 
         <ButtonFullWidth

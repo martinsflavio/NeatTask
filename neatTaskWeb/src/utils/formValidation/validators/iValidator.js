@@ -1,27 +1,31 @@
+import objDeepCopy from "../../objDeepCopy.js";
 import * as inputType from "../constantTypes/inputTypes";
 import rules from "../rules/rules.js";
 
 const validate = inputObj => {
-  let resultArray = [];
+  const newInputObj = objDeepCopy(inputObj);
   const { validations, value }= inputObj;
+  let validationsResultList = [];
 
   if (Array.isArray(validations)) {
     validations.forEach(validation => {
       // checks if array current index is an object
       if (typeof validation === "object" && validation !== null) {
         let key = Object.keys(validation)[0], v = validation[key];
-
-        resultArray.push(rules[key](value, v));
+        validationsResultList.push(rules[key](value, v));
       } else {
-        resultArray.push(rules[validation](value));
+        validationsResultList.push(rules[validation](value));
       }
 
     });
   }
-  return resultArray.every( item => item === true);
+  // update isValid property of the inputObj
+  newInputObj.isValid = validationsResultList.every( item => item === true);
+  newInputObj.error   = !newInputObj.isValid;
+  return newInputObj;
 };
 
-const inputValidator = (type, inputObj) => {
+const iValidator = (type, inputObj) => {
   switch (type) {
     case inputType.zipCode: return validate(inputObj);
     case inputType.email:   return validate(inputObj);
@@ -33,4 +37,4 @@ const inputValidator = (type, inputObj) => {
   }
 };
 
-export default inputValidator;
+export default iValidator;
