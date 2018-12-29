@@ -89,14 +89,11 @@ class BookingForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     let newState = objDeepCopy(this.state);
-   const { isFormValid, validatedForm } = fValidator(newState.formData);
+    const { isFormValid, validatedForm } = fValidator(newState.formData);
 
-   newState.formData = {...validatedForm};
-   newState.isFormValid = isFormValid;
-
-   console.log(newState);
-
-   this.setState({...newState});
+    newState.formData = {...validatedForm};
+    newState.isFormValid = isFormValid;
+    this.setState({...newState});
   };
 
   render() {
