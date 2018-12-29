@@ -16,6 +16,7 @@ class BookingForm extends Component {
     formData: {
       zipCode: {
         value:"",
+        required: true,
         isValid: false,
         error: false,
         errorMessage: "Please valid zip code required.",
@@ -42,6 +43,7 @@ class BookingForm extends Component {
       },
       date: {
         value:"",
+        required: true,
         isValid: false,
         error: false,
         errorMessage: "Invalid Date",
@@ -62,6 +64,7 @@ class BookingForm extends Component {
       },
       email: {
         value: "",
+        required: true,
         isValid: false,
         error: false,
         errorMessage: "Invalid Email",
@@ -111,8 +114,9 @@ class BookingForm extends Component {
           label="Zip Code"
           margin="normal"
           variant="outlined"
-          required fullWidth
+          fullWidth
           className={classes.textField}
+          required={formData[iTypes.zipCode].required}
           value={formData[iTypes.zipCode].value}
           error={formData[iTypes.zipCode].error}
           helperText={
@@ -131,6 +135,7 @@ class BookingForm extends Component {
           variant="outlined"
           select fullWidth
           className={classes.textField}
+          required={!!formData[iTypes.beds].required}
           SelectProps={{
             MenuProps: {
               className: classes.menu,
@@ -160,12 +165,13 @@ class BookingForm extends Component {
           variant="outlined"
           select fullWidth
           className={classes.textField}
-          value={formData[iTypes.baths].value}
+          required={!!formData[iTypes.baths].required}
           SelectProps={{
             MenuProps: {
               className: classes.menu,
             },
           }}
+          value={formData[iTypes.baths].value}
           error={formData[iTypes.baths].error}
           helperText={
             formData[iTypes.baths].error ?
@@ -188,8 +194,9 @@ class BookingForm extends Component {
           type="date"
           margin="normal"
           variant="outlined"
-          required fullWidth
+          fullWidth
           className={classes.textField}
+          required={!!formData[iTypes.date].required}
           InputLabelProps={{
             shrink: true,
           }}
@@ -210,7 +217,7 @@ class BookingForm extends Component {
           type="time"
           margin="normal"
           variant="outlined"
-          required fullWidth
+          fullWidth
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
@@ -234,8 +241,9 @@ class BookingForm extends Component {
           label="Email"
           margin="normal"
           variant="outlined"
-          required fullWidth
+          fullWidth
           className={classes.textField}
+          required={!!formData[iTypes.email].required}
           value={formData[iTypes.email].value}
           error={formData[iTypes.email].error}
           helperText={
