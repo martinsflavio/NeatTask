@@ -58,6 +58,8 @@ const rules = {
 
   isFloat: value => rules.matchRegexp(value, /^(?:[1-9]\d*|0)?(?:\.\d+)?$/i),
 
+  isTime: value => rules.matchRegexp(value, /^[0-2][0-3]:[0-5][0-9]$/),
+
   isDate: (value) => {
     let objDate, mSeconds, currentDate, day, month, year;
 
@@ -102,7 +104,7 @@ const rules = {
     return true;
   },
 
-  isTime: (value) => {
+  isTimePast: (value) => {
     let hours, minutes, currentMinutes, currentHours, objDate;
 
     objDate = new Date();
