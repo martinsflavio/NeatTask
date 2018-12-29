@@ -5,7 +5,7 @@ import { MenuItem, TextField } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import objDeepCopy from "../../utils/objDeepCopy.js";
 // form validation
-import { iTypes, rulesTypes, iValidator, fValidator } from "../../utils/formValidation";
+import { iTypes, rTypes, iValidator, fValidator, fReset } from "../../utils/formValidation";
 // styled components
 import { ButtonFullWidth } from "../../components";
 import styles from "./style.js";
@@ -16,61 +16,58 @@ class BookingForm extends Component {
     formData: {
       zipCode: {
         value:"",
-        required: true,
+        isRequired: true,
         isValid: false,
-        error: false,
+        isError: false,
         errorMessage: "Please valid zip code required.",
         validations: [
-          rulesTypes.required,
-          rulesTypes.isZipCode
+          rTypes.required,
+          rTypes.isZipCode
         ]
       },
       beds: {
         value:"",
         isValid: false,
         nBeds: [0,1,2,3,4,5,6,7,8,9,10],
-        error: false,
+        isError: false,
         errorMessage: "",
-        validations: [{[rulesTypes.isRange]: {max: 10, min: 0}}]
+        validations: [{[rTypes.isRange]: {max: 10, min: 0}}]
       },
       baths: {
         value:"",
         isValid: false,
         nBaths: [0,1,2,3,4,5,6,7,8,9,10],
-        error: false,
+        isError: false,
         errorMessage: "",
-        validations: [{[rulesTypes.isRange]: {max: 10, min: 0}}]
+        validations: [{[rTypes.isRange]: {max: 10, min: 0}}]
       },
       date: {
         value:"",
-        required: true,
+        isRequired: true,
         isValid: false,
-        error: false,
+        isError: false,
         errorMessage: "Invalid Date",
         validations: [
-          rulesTypes.required,
-          rulesTypes.isDate
+          rTypes.required,
+          rTypes.isDate
         ]
       },
       time: {
         value:"",
         isValid: false,
-        error: false,
+        isError: false,
         errorMessage: "Invalid Time",
-        validations: [
-          rulesTypes.required,
-          rulesTypes.isTime
-        ]
+        validations: [rTypes.isTime]
       },
       email: {
         value: "",
-        required: true,
+        isRequired: true,
         isValid: false,
-        error: false,
+        isError: false,
         errorMessage: "Invalid Email",
         validations: [
-          rulesTypes.required,
-          rulesTypes.isEmail
+          rTypes.required,
+          rTypes.isEmail
         ]
       }
     },
@@ -89,17 +86,30 @@ class BookingForm extends Component {
     newState.formData[inputFieldType] = {...validatedInputObj};
     this.setState({...newState});
   };
-  handleSubmit = e => {
+  handleFormValidation = e => {
     e.preventDefault();
     let newState = objDeepCopy(this.state);
-   const { isFormValid, validatedForm } = fValidator(newState.formData);
+    const { isFormValid, validatedForm } = fValidator(newState.formData);
 
-   newState.formData = {...validatedForm};
-   newState.isFormValid = isFormValid;
+    newState.formData = {...validatedForm};
+    newState.isFormValid = isFormValid;
+    this.setState({...newState});
+  };
 
-   console.log(newState);
+  // submit form is is valid
+  componentDidUpdate() {
+    let newForm = objDeepCopy(this.state.formData);
+    let resetForm;
 
-   this.setState({...newState});
+    if (this.state.isFormValid) {
+      console.log('FORM SENT');
+      console.dir(newForm);
+
+      resetForm = fReset(newForm);
+
+      console.log("FORM RESET");
+      console.dir(resetForm);
+    }
   };
 
   render() {
@@ -116,11 +126,11 @@ class BookingForm extends Component {
           variant="outlined"
           fullWidth
           className={classes.textField}
-          required={formData[iTypes.zipCode].required}
+          required={formData[iTypes.zipCode].isRequired}
           value={formData[iTypes.zipCode].value}
-          error={formData[iTypes.zipCode].error}
+          error={formData[iTypes.zipCode].isError}
           helperText={
-            formData[iTypes.zipCode].error ?
+            formData[iTypes.zipCode].isError ?
               formData[iTypes.zipCode].errorMessage : null
           }
           onChange={this.handleChange(iTypes.zipCode)}
@@ -135,16 +145,16 @@ class BookingForm extends Component {
           variant="outlined"
           select fullWidth
           className={classes.textField}
-          required={!!formData[iTypes.beds].required}
+          required={formData[iTypes.beds].isRequired}
           SelectProps={{
             MenuProps: {
               className: classes.menu,
             },
           }}
           value={formData[iTypes.beds].value}
-          error={formData[iTypes.beds].error}
+          error={formData[iTypes.beds].isError}
           helperText={
-            formData[iTypes.beds].error ?
+            formData[iTypes.beds].isError ?
               formData[iTypes.beds].errorMessage : null
           }
           onChange={this.handleChange(iTypes.beds)}
@@ -165,16 +175,16 @@ class BookingForm extends Component {
           variant="outlined"
           select fullWidth
           className={classes.textField}
-          required={!!formData[iTypes.baths].required}
+          required={formData[iTypes.baths].isRequired}
           SelectProps={{
             MenuProps: {
               className: classes.menu,
             },
           }}
           value={formData[iTypes.baths].value}
-          error={formData[iTypes.baths].error}
+          error={formData[iTypes.baths].isError}
           helperText={
-            formData[iTypes.baths].error ?
+            formData[iTypes.baths].isError ?
               formData[iTypes.baths].errorMessage : null
           }
           onChange={this.handleChange(iTypes.baths)}
@@ -196,14 +206,14 @@ class BookingForm extends Component {
           variant="outlined"
           fullWidth
           className={classes.textField}
-          required={!!formData[iTypes.date].required}
+          required={formData[iTypes.date].isRequired}
           InputLabelProps={{
             shrink: true,
           }}
           defaultValue={formData[iTypes.date].value}
-          error={formData[iTypes.date].error}
+          error={formData[iTypes.date].isError}
           helperText={
-            formData[iTypes.date].error ?
+            formData[iTypes.date].isError ?
               formData[iTypes.date].errorMessage : null
           }
           onChange={this.handleChange(iTypes.date)}
@@ -219,6 +229,7 @@ class BookingForm extends Component {
           variant="outlined"
           fullWidth
           className={classes.textField}
+          required={formData[iTypes.time].isRequired}
           InputLabelProps={{
             shrink: true,
           }}
@@ -226,9 +237,9 @@ class BookingForm extends Component {
             step: 300, // 5 min
           }}
           defaultValue={formData[iTypes.time].value}
-          error={formData[iTypes.time].error}
+          error={formData[iTypes.time].isError}
           helperText={
-            formData[iTypes.time].error ?
+            formData[iTypes.time].isError ?
               formData[iTypes.time].errorMessage : null
           }
           onChange={this.handleChange(iTypes.time)}
@@ -243,11 +254,11 @@ class BookingForm extends Component {
           variant="outlined"
           fullWidth
           className={classes.textField}
-          required={!!formData[iTypes.email].required}
+          required={formData[iTypes.date].isRequired}
           value={formData[iTypes.email].value}
-          error={formData[iTypes.email].error}
+          error={formData[iTypes.email].isError}
           helperText={
-            formData[iTypes.email].error ?
+            formData[iTypes.email].isError ?
               formData[iTypes.email].errorMessage : null
           }
           onChange={this.handleChange(iTypes.email)}
@@ -257,7 +268,7 @@ class BookingForm extends Component {
         <ButtonFullWidth
           variant="contained"
           color="primary"
-          onClick={e => this.handleSubmit(e)}>
+          onClick={e => this.handleFormValidation(e)}>
           Submit
         </ButtonFullWidth>
       </form>

@@ -17,3 +17,4 @@ export const minNumber = "minNumber";
 export const minStringLength = "minStringLength";
 export const required = "required";
 export const trim = "trim";
+export const isTimePast = "isTimePast";
