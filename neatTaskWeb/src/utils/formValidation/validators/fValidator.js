@@ -1,6 +1,6 @@
 import iValidator from "./iValidator.js";
-import objDeepCopy from "../../objDeepCopy";
-import makeObjIterable from "../../makeObjIterable";
+import objDeepCopy from "../../objDeepCopy.js";
+import makeObjIterable from "../../makeObjIterable.js";
 
 const fValidator = form => {
   const iterableForm  = makeObjIterable(objDeepCopy(form));

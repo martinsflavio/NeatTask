@@ -1,5 +1,5 @@
 import objDeepCopy from "../../objDeepCopy.js";
-import * as inputType from "../constantTypes/inputTypes";
+import * as inputType from "../constantTypes/inputTypes.js";
 import rules from "../rules/rules.js";
 
 const validate = inputObj => {
@@ -21,7 +21,7 @@ const validate = inputObj => {
   }
   // update isValid property of the inputObj
   newInputObj.isValid = validationsResultList.every( item => item === true);
-  newInputObj.error   = !newInputObj.isValid;
+  newInputObj.isError   = !newInputObj.isValid;
   return newInputObj;
 };
 
