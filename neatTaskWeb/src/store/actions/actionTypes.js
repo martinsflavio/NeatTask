@@ -1,0 +1,2 @@
+// BOOKING
+export const POST_BOOKING_FORM = "POST_BOOKING_FORM";

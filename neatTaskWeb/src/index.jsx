@@ -2,19 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-
+import { Provider } from "react-redux";
+import store from "./store/store.js";
 import indexRoutes from "./routes/indexRoutes";
 
 const app = (
-  <BrowserRouter>
-    <Switch>
-      {
-        indexRoutes.map((prop, key) => {
-          return <Route exact={prop.exact} path={prop.path} key={key} component={prop.component} />;
-        })
-      }
-    </Switch>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        {
+          indexRoutes.map((prop, key) => {
+            return <Route exact={prop.exact} path={prop.path} key={key} component={prop.component} />;
+          })
+        }
+      </Switch>
+    </BrowserRouter>
+  </Provider>
 );
 
 ReactDOM.render(app, document.getElementById("root"));
