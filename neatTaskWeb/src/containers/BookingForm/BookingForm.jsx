@@ -1,13 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/index.js";
 import PropTypes from "prop-types";
 import { MenuItem, TextField } from "@material-ui/core";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import objDeepCopy from "../../utils/objDeepCopy.js";
 // form validation
-import { iTypes, rTypes, iValidator, fValidator, fReset } from "../../utils/formValidation";
+import { iTypes, rTypes, iValidator, fValidator, fReset } from "../../utils/formValidation/index.js";
 // styled components
-import { ButtonFullWidth } from "../../components";
+import { ButtonFullWidth } from "../../components/index.js";
 import styles from "./style.js";
 
 class BookingForm extends Component {
@@ -107,7 +109,7 @@ class BookingForm extends Component {
 
     if (this.state.isFormValid) {
       console.log('FORM SENT');
-      console.dir(newForm);
+      this.props.postBookingForm(newForm);
 
       resetForm = fReset(newForm);
 
@@ -280,8 +282,23 @@ class BookingForm extends Component {
   }
 }
 
+/*const mapStateToProps = (booking) => {
+  return {
+    booking
+  }
+};*/
+
+const mapDispatchToProps = dispatch => {
+  return {
+    postBookingForm: (formObj) => dispatch(actions.postBookingForm(formObj))
+  }
+};
+
 BookingForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(BookingForm);
+// injecting Material UI theme
+const BookingFormWithStyle = withStyles(styles)(BookingForm);
+
+export default connect(null, mapDispatchToProps)(BookingFormWithStyle);
