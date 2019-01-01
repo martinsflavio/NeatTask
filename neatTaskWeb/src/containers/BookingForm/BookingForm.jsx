@@ -96,10 +96,6 @@ class BookingForm extends Component {
     newState.formData = {...validatedForm};
     newState.isFormValid = isFormValid;
     this.setState({...newState});
-
-    newState.formData = {...validatedForm};
-    newState.isFormValid = isFormValid;
-    this.setState({...newState});
   };
 
   // submit form is is valid
