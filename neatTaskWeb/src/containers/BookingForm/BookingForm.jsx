@@ -7,7 +7,7 @@ import { MenuItem, TextField } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import objDeepCopy from "../../utils/objDeepCopy.js";
 // bookingForm validation
-import { iNames, rNames, iValidator, fValidator, fReset } from "../../utils/formValidation/index.js";
+import { iNames, rNames, iValidator, fValidator } from "../../utils/formValidation/index.js";
 // styled components
 import { ButtonFullWidth } from "../../components/index.js";
 import styles from "./style.js";
@@ -99,6 +99,7 @@ class BookingForm extends Component {
       newState.bookingForm = bookingForm;
       newState.okToSubmit = okToSubmit;
       this.setState({...newState});
+    }
   };
         
   render() {
