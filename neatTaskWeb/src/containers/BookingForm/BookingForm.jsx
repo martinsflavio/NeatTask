@@ -92,16 +92,15 @@ class BookingForm extends Component {
     e.preventDefault();
     let newState = objDeepCopy(this.state);
     const { okToSubmit, bookingForm } = fValidator(newState.bookingForm);
-
+    
     if (okToSubmit) {
       this.props.postBookingForm(bookingForm);
     } else {
       newState.bookingForm = bookingForm;
       newState.okToSubmit = okToSubmit;
       this.setState({...newState});
-    }
   };
-
+        
   render() {
     const { classes, bookingReducer } = this.props;
     const { bookingForm } = this.state;
