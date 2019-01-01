@@ -6,16 +6,16 @@ import { MenuItem, TextField } from "@material-ui/core";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import objDeepCopy from "../../utils/objDeepCopy.js";
-// form validation
-import { iTypes, rTypes, iValidator, fValidator, fReset } from "../../utils/formValidation/index.js";
+// bookingForm validation
+import { iNames, rNames, iValidator, fValidator, fReset } from "../../utils/formValidation/index.js";
 // styled components
 import { ButtonFullWidth } from "../../components/index.js";
 import styles from "./style.js";
 
 class BookingForm extends Component {
   state = {
-    isFormValid: false,
-    formData: {
+    okToSubmit: false,
+    bookingForm: {
       zipCode: {
         value:"",
         isRequired: true,
@@ -23,8 +23,8 @@ class BookingForm extends Component {
         isError: false,
         errorMessage: "Please valid zip code required.",
         validations: [
-          rTypes.required,
-          rTypes.isZipCode
+          rNames.required,
+          rNames.isZipCode
         ]
       },
       beds: {
@@ -33,7 +33,7 @@ class BookingForm extends Component {
         nBeds: [0,1,2,3,4,5,6,7,8,9,10],
         isError: false,
         errorMessage: "",
-        validations: [{[rTypes.isRange]: {max: 10, min: 0}}]
+        validations: [{[rNames.isRange]: {max: 10, min: 0}}]
       },
       baths: {
         value:"",
@@ -41,7 +41,7 @@ class BookingForm extends Component {
         nBaths: [0,1,2,3,4,5,6,7,8,9,10],
         isError: false,
         errorMessage: "",
-        validations: [{[rTypes.isRange]: {max: 10, min: 0}}]
+        validations: [{[rNames.isRange]: {max: 10, min: 0}}]
       },
       date: {
         value:"",
@@ -50,8 +50,8 @@ class BookingForm extends Component {
         isError: false,
         errorMessage: "Invalid Date",
         validations: [
-          rTypes.required,
-          rTypes.isDate
+          rNames.required,
+          rNames.isDate
         ]
       },
       time: {
@@ -59,7 +59,7 @@ class BookingForm extends Component {
         isValid: false,
         isError: false,
         errorMessage: "Invalid Time",
-        validations: [rTypes.isTime]
+        validations: [rNames.isTime]
       },
       email: {
         value: "",
@@ -68,55 +68,44 @@ class BookingForm extends Component {
         isError: false,
         errorMessage: "Invalid Email",
         validations: [
-          rTypes.required,
-          rTypes.isEmail
+          rNames.required,
+          rNames.isEmail
         ]
       }
     },
   };
 
-  handleChange = inputField => e => {
+  handleChange = inputName => e => {
     let newState = objDeepCopy(this.state);
 
-    newState.formData[inputField].value = e.target.value;
+    newState.bookingForm[inputName].value = e.target.value;
     this.setState({...newState});
   };
-  handleInputValidation = (inputFieldType) => () => {
+  handleInputValidation = inputName => () => {
     const newState          = objDeepCopy(this.state);
-    const validatedInputObj = iValidator(inputFieldType, newState.formData[inputFieldType]);
+    const validatedInputObj = iValidator(inputName, newState.bookingForm[inputName]);
 
-    newState.formData[inputFieldType] = {...validatedInputObj};
+    newState.bookingForm[inputName] = {...validatedInputObj};
     this.setState({...newState});
   };
-  handleFormValidation = e => {
+  handleFormValidationAndSubmit = e => {
     e.preventDefault();
     let newState = objDeepCopy(this.state);
-    const { isFormValid, validatedForm } = fValidator(newState.formData);
-
-    newState.formData = {...validatedForm};
-    newState.isFormValid = isFormValid;
-    this.setState({...newState});
+    const { okToSubmit, bookingForm } = fValidator(newState.bookingForm);
+    
+    if (okToSubmit) {
+      this.props.postBookingForm(bookingForm);
+    } else {
+      newState.bookingForm = bookingForm;
+      newState.okToSubmit = okToSubmit;
+      this.setState({...newState});
   };
-
-  // submit form is is valid
-  componentDidUpdate() {
-    let newForm = objDeepCopy(this.state.formData);
-    let resetForm;
-
-    if (this.state.isFormValid) {
-      console.log('FORM SENT');
-      this.props.postBookingForm(newForm);
-
-      resetForm = fReset(newForm);
-
-      console.log("FORM RESET");
-      console.dir(resetForm);
-    }
-  };
-
+        
   render() {
-    const { classes } = this.props;
-    const { formData } = this.state;
+    const { classes, bookingReducer } = this.props;
+    const { bookingForm } = this.state;
+
+    console.log(bookingReducer);
 
     return (
       <form className={classes.container} autoComplete="off">
@@ -128,15 +117,15 @@ class BookingForm extends Component {
           variant="outlined"
           fullWidth
           className={classes.textField}
-          required={formData[iTypes.zipCode].isRequired}
-          value={formData[iTypes.zipCode].value}
-          error={formData[iTypes.zipCode].isError}
+          required={bookingForm[iNames.zipCode].isRequired}
+          value={bookingForm[iNames.zipCode].value}
+          error={bookingForm[iNames.zipCode].isError}
           helperText={
-            formData[iTypes.zipCode].isError ?
-              formData[iTypes.zipCode].errorMessage : null
+            bookingForm[iNames.zipCode].isError ?
+              bookingForm[iNames.zipCode].errorMessage : null
           }
-          onChange={this.handleChange(iTypes.zipCode)}
-          onBlur={this.handleInputValidation(iTypes.zipCode)}
+          onChange={this.handleChange(iNames.zipCode)}
+          onBlur={this.handleInputValidation(iNames.zipCode)}
         />
 
         {/* Beds */}
@@ -147,22 +136,22 @@ class BookingForm extends Component {
           variant="outlined"
           select fullWidth
           className={classes.textField}
-          required={formData[iTypes.beds].isRequired}
+          required={bookingForm[iNames.beds].isRequired}
           SelectProps={{
             MenuProps: {
               className: classes.menu,
             },
           }}
-          value={formData[iTypes.beds].value}
-          error={formData[iTypes.beds].isError}
+          value={bookingForm[iNames.beds].value}
+          error={bookingForm[iNames.beds].isError}
           helperText={
-            formData[iTypes.beds].isError ?
-              formData[iTypes.beds].errorMessage : null
+            bookingForm[iNames.beds].isError ?
+              bookingForm[iNames.beds].errorMessage : null
           }
-          onChange={this.handleChange(iTypes.beds)}
-          onBlur={this.handleInputValidation(iTypes.beds)}
+          onChange={this.handleChange(iNames.beds)}
+          onBlur={this.handleInputValidation(iNames.beds)}
         >
-          {formData.beds.nBeds.map(option => (
+          {bookingForm.beds.nBeds.map(option => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
@@ -177,22 +166,22 @@ class BookingForm extends Component {
           variant="outlined"
           select fullWidth
           className={classes.textField}
-          required={formData[iTypes.baths].isRequired}
+          required={bookingForm[iNames.baths].isRequired}
           SelectProps={{
             MenuProps: {
               className: classes.menu,
             },
           }}
-          value={formData[iTypes.baths].value}
-          error={formData[iTypes.baths].isError}
+          value={bookingForm[iNames.baths].value}
+          error={bookingForm[iNames.baths].isError}
           helperText={
-            formData[iTypes.baths].isError ?
-              formData[iTypes.baths].errorMessage : null
+            bookingForm[iNames.baths].isError ?
+              bookingForm[iNames.baths].errorMessage : null
           }
-          onChange={this.handleChange(iTypes.baths)}
-          onBlur={this.handleInputValidation(iTypes.baths)}
+          onChange={this.handleChange(iNames.baths)}
+          onBlur={this.handleInputValidation(iNames.baths)}
         >
-          {formData.baths.nBaths.map(option => (
+          {bookingForm.baths.nBaths.map(option => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
@@ -208,18 +197,18 @@ class BookingForm extends Component {
           variant="outlined"
           fullWidth
           className={classes.textField}
-          required={formData[iTypes.date].isRequired}
+          required={bookingForm[iNames.date].isRequired}
           InputLabelProps={{
             shrink: true,
           }}
-          defaultValue={formData[iTypes.date].value}
-          error={formData[iTypes.date].isError}
+          defaultValue={bookingForm[iNames.date].value}
+          error={bookingForm[iNames.date].isError}
           helperText={
-            formData[iTypes.date].isError ?
-              formData[iTypes.date].errorMessage : null
+            bookingForm[iNames.date].isError ?
+              bookingForm[iNames.date].errorMessage : null
           }
-          onChange={this.handleChange(iTypes.date)}
-          onBlur={this.handleInputValidation(iTypes.date)}
+          onChange={this.handleChange(iNames.date)}
+          onBlur={this.handleInputValidation(iNames.date)}
         />
 
         {/* Time */}
@@ -231,21 +220,21 @@ class BookingForm extends Component {
           variant="outlined"
           fullWidth
           className={classes.textField}
-          required={formData[iTypes.time].isRequired}
+          required={bookingForm[iNames.time].isRequired}
           InputLabelProps={{
             shrink: true,
           }}
           inputProps={{
             step: 300, // 5 min
           }}
-          defaultValue={formData[iTypes.time].value}
-          error={formData[iTypes.time].isError}
+          defaultValue={bookingForm[iNames.time].value}
+          error={bookingForm[iNames.time].isError}
           helperText={
-            formData[iTypes.time].isError ?
-              formData[iTypes.time].errorMessage : null
+            bookingForm[iNames.time].isError ?
+              bookingForm[iNames.time].errorMessage : null
           }
-          onChange={this.handleChange(iTypes.time)}
-          onBlur={this.handleInputValidation(iTypes.time)}
+          onChange={this.handleChange(iNames.time)}
+          onBlur={this.handleInputValidation(iNames.time)}
         />
 
         {/* email */}
@@ -256,21 +245,21 @@ class BookingForm extends Component {
           variant="outlined"
           fullWidth
           className={classes.textField}
-          required={formData[iTypes.date].isRequired}
-          value={formData[iTypes.email].value}
-          error={formData[iTypes.email].isError}
+          required={bookingForm[iNames.date].isRequired}
+          value={bookingForm[iNames.email].value}
+          error={bookingForm[iNames.email].isError}
           helperText={
-            formData[iTypes.email].isError ?
-              formData[iTypes.email].errorMessage : null
+            bookingForm[iNames.email].isError ?
+              bookingForm[iNames.email].errorMessage : null
           }
-          onChange={this.handleChange(iTypes.email)}
-          onBlur={this.handleInputValidation(iTypes.email)}
+          onChange={this.handleChange(iNames.email)}
+          onBlur={this.handleInputValidation(iNames.email)}
         />
 
         <ButtonFullWidth
           variant="contained"
           color="primary"
-          onClick={e => this.handleFormValidation(e)}>
+          onClick={ e => this.handleFormValidationAndSubmit(e) }>
           Submit
         </ButtonFullWidth>
       </form>
@@ -278,15 +267,15 @@ class BookingForm extends Component {
   }
 }
 
-/*const mapStateToProps = (booking) => {
+const mapStateToProps = ({bookingReducer}) => {
   return {
-    booking
+    bookingReducer
   }
-};*/
+};
 
 const mapDispatchToProps = dispatch => {
   return {
-    postBookingForm: (formObj) => dispatch(actions.postBookingForm(formObj))
+    postBookingForm: formObj => dispatch(actions.postBookingForm(formObj))
   }
 };
 
@@ -297,4 +286,4 @@ BookingForm.propTypes = {
 // injecting Material UI theme
 const BookingFormWithStyle = withStyles(styles)(BookingForm);
 
-export default connect(null, mapDispatchToProps)(BookingFormWithStyle);
+export default connect(mapStateToProps, mapDispatchToProps)(BookingFormWithStyle);

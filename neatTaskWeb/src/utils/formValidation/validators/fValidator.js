@@ -20,8 +20,8 @@ const fValidator = form => {
 
   // update formValidation property and return it
   return {
-    isFormValid: isFormValid.every(result => result === true),
-    validatedForm: validatedForm
+    okToSubmit: isFormValid.every(item => item === true),
+    bookingForm: validatedForm
   };
 };
 

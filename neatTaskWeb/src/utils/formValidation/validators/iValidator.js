@@ -1,5 +1,5 @@
 import objDeepCopy from "../../objDeepCopy.js";
-import * as inputType from "../constantTypes/inputTypes.js";
+import * as iName from "../constants/inputNames.js";
 import rules from "../rules/rules.js";
 
 const validate = inputObj => {
@@ -27,12 +27,12 @@ const validate = inputObj => {
 
 const iValidator = (type, inputObj) => {
   switch (type) {
-    case inputType.zipCode: return validate(inputObj);
-    case inputType.email:   return validate(inputObj);
-    case inputType.beds:    return validate(inputObj);
-    case inputType.baths:   return validate(inputObj);
-    case inputType.date:    return validate(inputObj);
-    case inputType.time:    return validate(inputObj);
+    case iName.zipCode: return validate(inputObj);
+    case iName.email:   return validate(inputObj);
+    case iName.beds:    return validate(inputObj);
+    case iName.baths:   return validate(inputObj);
+    case iName.date:    return validate(inputObj);
+    case iName.time:    return validate(inputObj);
     default: return inputObj;
   }
 };

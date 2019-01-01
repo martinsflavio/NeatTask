@@ -1,13 +1,13 @@
 import iValidator from "./validators/iValidator.js";
 import fValidator from "./validators/fValidator.js";
 import fReset from "./fReset.js";
-import * as iTypes from "./constantTypes/inputTypes.js";
-import * as rTypes from "./constantTypes/rulesTypes.js"
+import * as iNames from "./constants/inputNames.js";
+import * as rNames from "./constants/rulesNames.js"
 
 export {
   iValidator,
   fValidator,
   fReset,
-  iTypes,
-  rTypes
+  iNames,
+  rNames
 }
