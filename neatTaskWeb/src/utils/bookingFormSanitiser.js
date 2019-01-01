@@ -2,7 +2,6 @@ import makeObjIterable from "./makeObjIterable.js";
 
 // Util func to sanitise bookingForm Obj
 const bookingFormSanitiser = formObj => {
-  console.log("bookingFormSanitiser");
   const iterableObj = makeObjIterable(formObj);
   let sanitisedObj = {};
 

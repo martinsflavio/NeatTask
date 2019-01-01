@@ -103,10 +103,8 @@ class BookingForm extends Component {
   };
         
   render() {
-    const { classes, bookingReducer } = this.props;
+    const { classes } = this.props;
     const { bookingForm } = this.state;
-
-    console.log(bookingReducer);
 
     return (
       <form className={classes.container} autoComplete="off">
