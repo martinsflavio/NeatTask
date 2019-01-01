@@ -2,19 +2,12 @@ import * as aTypes from "../actions/actionTypes.js";
 import objDeepCopy from "../../utils/objDeepCopy.js";
 
 export const initialState = {
-  bookingForm: null
+  bookingForm: null,
+  error: null
 };
 
-// Util func to sanitise form Obj
-const bookingFormObjCreator = formObj => {
-  console.log("bookingFormCreator");
-  return formObj;
-};
-
-const setBookingForm = (state, { payload }) => {
+const postBookingFormSuccess = (state, { payload }) => {
   let newState = objDeepCopy(state);
-
-  //TODO remove unnecessary data from form obj here
 
   return {
     ...newState,
@@ -22,9 +15,19 @@ const setBookingForm = (state, { payload }) => {
   };
 };
 
+const postBookingFormFailed = (state, { payload }) => {
+  let newState = objDeepCopy(state);
+
+  return {
+    ...newState,
+    error: {...payload}
+  };
+};
+
 export const booking = (state = initialState, action) => {
   switch (action.type) {
-    case aTypes.POST_BOOKING_FORM: return setBookingForm(state, action);
+    case aTypes.POST_BOOKING_FORM_SUCCESS: return postBookingFormSuccess(state, action);
+    case aTypes.POST_BOOKING_FORM_FAILED:  return postBookingFormFailed(state, action);
     default: return state;
   }
 };

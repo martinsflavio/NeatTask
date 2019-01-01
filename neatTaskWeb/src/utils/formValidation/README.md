@@ -22,8 +22,8 @@
 ++ HOW TO USE
     Obj must follow this format
 
-    formData: {
-        [inputType]: {
+    bookingForm: {
+        [iName]: {
             value: "",
             isValid: bool,
             errorMessage: ""
