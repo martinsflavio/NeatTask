@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 
-import style from "./bookingPage.module.css";
+import { BookingForm } from "../../containers";
+import { HeaderCustom } from "../../components";
 
 class BookingPage extends Component {
   render() {
     return (
-      <div className={style.bookingBlue}>
-        BookingPage
+      <div>
+        <HeaderCustom/>
+        <BookingForm/>
       </div>
     )
   }

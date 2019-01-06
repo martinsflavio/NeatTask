@@ -25,7 +25,7 @@ const makeObjIterable = obj => {
           }
 
           return {
-            value: undefined,
+            value: null,
             done: true
           };
         }

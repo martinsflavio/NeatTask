@@ -3,7 +3,7 @@ import React from "react";
 // styled components
 import { BookingForm } from "../../../containers";
 
-const Product = (props) => {
+const Booking = (props) => {
 
   return (
     <div>
@@ -12,4 +12,4 @@ const Product = (props) => {
   );
 };
 
-export default Product;
+export default Booking;

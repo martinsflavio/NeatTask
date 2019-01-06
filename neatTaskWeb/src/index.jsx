@@ -1,21 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
-import indexRoutes from "./routes/indexRoutes";
+import * as serviceWorker from "./serviceWorker";
+import App from "./app/App.jsx";
+
 
 const app = (
   <Provider store={store}>
     <BrowserRouter>
-      <Switch>
-        {
-          indexRoutes.map((prop, key) => {
-            return <Route exact={prop.exact} path={prop.path} key={key} component={prop.component} />;
-          })
-        }
-      </Switch>
+      <App />
     </BrowserRouter>
   </Provider>
 );

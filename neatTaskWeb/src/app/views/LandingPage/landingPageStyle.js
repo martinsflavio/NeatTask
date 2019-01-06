@@ -1,7 +1,7 @@
 const styles = theme => ({
-  banner:{
-    backgroundColor: "#ccc"
-  }
+  media: {
+    height: 200
+  },
 });
 
 export default styles;
