@@ -8,7 +8,7 @@ import { Header, GridContainer, GridItem } from "../../components";
 import styles from "./style.js";
 
 // banner img
-import bannerImg from "../../assets/img/landingBg.jpg"
+import bannerImg from "../../../assets/img/landingBg.jpg"
 
 // sections of this page
 import Product from "./Sections/Product.jsx";

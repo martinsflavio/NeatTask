@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actions from "../../store/actions/index.js";
+import * as actions from "../../../store/actions/index.js";
 import PropTypes from "prop-types";
 import { MenuItem, TextField } from "@material-ui/core";
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import objDeepCopy from "../../utils/objDeepCopy.js";
+import objDeepCopy from "../../../utils/objDeepCopy.js";
 // bookingForm validation
-import { iNames, rNames, iValidator, fValidator } from "../../utils/formValidation/index.js";
+import { iNames, rNames, iValidator, fValidator } from "../../../utils/formValidation/index.js";
 // styled components
 import { ButtonFullWidth } from "../../components/index.js";
 import styles from "./style.js";
