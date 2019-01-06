@@ -5,16 +5,16 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Header, GridContainer, GridItem } from "../../components";
 
 // Jss
-import styles from "./landingPageStyle";
+import styles from "./style.js";
 
 // banner img
 import bannerImg from "../../assets/img/landingBg.jpg"
 
 // sections of this page
-import Product from "./Sections/Product";
-import CostumersReviews from "./Sections/CostumerReviews";
-import HowWeWork from "./Sections/HowWeWork";
-import TopCleaners from "./Sections/TopCleaners";
+import Product from "./Sections/Product.jsx";
+import CostumersReviews from "./Sections/CostumerReviews.jsx";
+import HowWeWork from "./Sections/HowWeWork.jsx";
+import TopCleaners from "./Sections/TopCleaners.jsx";
 
 class LandingPage extends Component {
   render() {

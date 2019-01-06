@@ -1,6 +1,4 @@
-import LandingPage from "../views/LandingPage/LandingPage";
-import BookingPage from "../views/BookingPage/BookingPage";
-import NotFound from "../views/NotFound/NotFound";
+import { LandingPage, BookingPage, NotFound } from "../views/index.js";
 
 //TODO abstract exact property
 const indexRoutes = [

@@ -4,7 +4,7 @@ import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
-import indexRoutes from "./routes/indexRoutes";
+import indexRoutes from "./routes/indexRoutes.js";
 
 const app = (
   <Provider store={store}>
