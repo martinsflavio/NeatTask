@@ -23,7 +23,7 @@ import SettingIcon from "@material-ui/icons/Settings";
 // Jss
 import styles from "./headerCustomStyle.js";
 
-class PrimarySearchAppBar extends React.Component {
+class HeaderCustom extends Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
@@ -147,8 +147,8 @@ class PrimarySearchAppBar extends React.Component {
   }
 }
 
-PrimarySearchAppBar.propTypes = {
+HeaderCustom.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PrimarySearchAppBar);
+export default withStyles(styles)(HeaderCustom);
