@@ -10,7 +10,7 @@ import objDeepCopy from "../../../utils/objDeepCopy.js";
 import { iNames, rNames, iValidator, fValidator } from "../../../utils/formValidation/index.js";
 // styled components
 import { ButtonFullWidth } from "../../components/index.js";
-import styles from "./style.js";
+import styles from "./bookingFormStyle.js";
 
 class BookingForm extends Component {
   state = {

@@ -1,17 +1,20 @@
 import React, { Component, Fragment } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 
+// material-ui core
+import { CardMedia } from "@material-ui/core";
+
 // styled components
-import { Header, GridContainer, GridItem } from "../../components";
+import { HeaderCustom, GridContainer, GridItem } from "../../components";
 
 // Jss
-import styles from "./style.js";
+import styles from "./landingPageStyle.js";
 
 // banner img
 import bannerImg from "../../../assets/img/landingBg.jpg"
 
 // sections of this page
-import Product from "./Sections/Product.jsx";
+import Booking from "./Sections/Booking.jsx";
 import CostumersReviews from "./Sections/CostumerReviews.jsx";
 import HowWeWork from "./Sections/HowWeWork.jsx";
 import TopCleaners from "./Sections/TopCleaners.jsx";
@@ -22,13 +25,11 @@ class LandingPage extends Component {
 
     return (
       <Fragment>
-        <Header />
+        <HeaderCustom />
+        <CardMedia className={classes.media} image={bannerImg} />
         <GridContainer direction="row" justify="center" alignItems="flex-start">
-          <div className={classes.banner}>
-            <img alt="banner" src={ bannerImg }/>
-          </div>
           <GridItem xs={12} >
-            <Product />
+            <Booking />
           </GridItem>
           <GridItem xs={12} >
             <HowWeWork/>

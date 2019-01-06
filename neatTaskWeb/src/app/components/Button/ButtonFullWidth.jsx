@@ -5,7 +5,7 @@ import { Button } from "@material-ui/core"
 import { withStyles } from "@material-ui/core/styles";
 
 // Jss
-import styles from "./style.js";
+import styles from "./buttonFullWidthStyle.js";
 
 const ButtonFullWidth = (props) => {
   const { classes, ...rest } = props;

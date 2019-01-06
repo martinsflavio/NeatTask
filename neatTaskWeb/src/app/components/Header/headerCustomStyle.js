@@ -1,4 +1,4 @@
-const headerStyle = {
+const styles = theme => ({
   root: {
     flexGrow: 1,
   },
@@ -9,6 +9,6 @@ const headerStyle = {
     marginLeft: -12,
     marginRight: 20,
   }
-};
+});
 
-export default headerStyle;
+export default styles;

@@ -7,7 +7,7 @@ import { AppBar, Toolbar, Typography, Button, IconButton } from "@material-ui/co
 import MenuIcon from "@material-ui/icons/Menu";
 
 // Jss
-import styles from "./style.js";
+import styles from "./headerCustomStyle.js";
 
 class ButtonAppBar extends Component {
   render() {
@@ -15,7 +15,7 @@ class ButtonAppBar extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar  color="secondary" position="static">
+        <AppBar  color="primary" position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon/>
