@@ -5,7 +5,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { CardMedia } from "@material-ui/core";
 
 // styled components
-import { HeaderCustom, GridContainer, GridItem } from "../../components";
+import { GridContainer, GridItem } from "../../components";
+import { HeaderCustom } from "../../containers";
 
 // Jss
 import styles from "./landingPageStyle.js";
