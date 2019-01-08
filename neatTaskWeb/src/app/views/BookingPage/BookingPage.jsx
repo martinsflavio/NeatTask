@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
-import { BookingForm } from "../../containers";
-import { HeaderCustom } from "../../components";
+import { BookingForm, HeaderCustom } from "../../containers";
 
 class BookingPage extends Component {
   render() {
