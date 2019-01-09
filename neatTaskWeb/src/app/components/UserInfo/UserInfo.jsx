@@ -24,9 +24,11 @@ function PaperSheet(props) {
     rate: 4.8,
     hired: 50,
     businessHours: ["9:00", "20:00"],
-    services: ["Standard Cleaning", "Deep Cleaning", "Move In", "Move Out"],
-    cleaningProducts: ["Standard", "Eco-friendly"],
-    coveredAreas: ["San Francisco", "Oakland"]
+    additionalInfo: {
+      "Services Offered": ["Standard Cleaning", "Deep Cleaning", "Move In", "Move Out"],
+      "Cleaning Products": ["Standard", "Eco-friendly"],
+      "Covered Areas": ["San Francisco", "Oakland"]
+    }
   };
 
   return (
@@ -42,7 +44,7 @@ function PaperSheet(props) {
 
           {/* User additional info block */}
           <GridItem xs={12} sm={9}>
-            <AdditionalInfo />
+            <AdditionalInfo data={userData.additionalInfo}/>
           </GridItem>
         </GridContainer>
       </div>
