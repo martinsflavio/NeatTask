@@ -1,7 +1,6 @@
 import BookingForm from "./BookingForm/BookingForm.jsx";
-import HeaderCustom from "./HeaderCustom/HeaderCustom.jsx";
-
+import Header from "../layout/Header/Header.jsx"
 export {
   BookingForm,
-  HeaderCustom
+  Header
 };

@@ -23,7 +23,7 @@ const Card = props => {
   const listOfItem = ["Standard Cleaning", "Deep Cleaning", "Move In", "Move Out"];
 
   return (
-    <Paper className={classes.root} elevation={0}>
+    <Paper className={classes.root} elevation={3}>
       <GridContainer
         className={classes.container}
         direction="row"
@@ -42,7 +42,7 @@ const Card = props => {
       </GridContainer>
 
       <Divider />
-      <Button hover color="primary" component="a" fullWidth>get started</Button>
+      <Button hover="true"  href="/" color="primary" component="a" fullWidth>get started</Button>
     </Paper>
   );
 };

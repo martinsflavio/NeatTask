@@ -1,19 +1,18 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
-import { HeaderCustom } from "../../containers";
 import { UserInfo, GridItem, GridContainer } from "../../components";
+import Layout from "../../layout/Layout.jsx";
 
 class ProfilePage extends Component {
   render() {
     return (
-      <Fragment>
-        <HeaderCustom />
+      <Layout>
         <GridContainer direction="row" justify="center" alignItems="flex-start">
           <GridItem xs={12}>
             <UserInfo />
           </GridItem>
         </GridContainer>
-      </Fragment>
+      </Layout>
     );
   }
 }

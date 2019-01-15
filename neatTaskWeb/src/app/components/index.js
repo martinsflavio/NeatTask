@@ -15,5 +15,5 @@ export {
   UserInfo,
   Avatar,
   UserInfoHeader,
-  AdditionalInfo
+  AdditionalInfo,
 };

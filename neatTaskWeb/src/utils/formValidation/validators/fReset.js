@@ -1,5 +1,5 @@
-import objDeepCopy from "../objDeepCopy.js";
-import makeObjIterable from "../makeObjIterable.js";
+import objDeepCopy from "../../objDeepCopy.js";
+import makeObjIterable from "../../makeObjIterable.js";
 
 const fReset = form => {
   const iterableForm  = makeObjIterable(objDeepCopy(form));

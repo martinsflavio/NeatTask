@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 
-import { BookingForm, HeaderCustom } from "../../containers";
+import { BookingForm } from "../../containers";
+import Layout from "../../layout/Layout.jsx";
 
 class BookingPage extends Component {
   render() {
     return (
-      <div>
-        <HeaderCustom/>
+      <Layout>
         <BookingForm/>
-      </div>
+      </Layout>
     )
   }
 }
