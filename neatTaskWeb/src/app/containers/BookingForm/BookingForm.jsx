@@ -107,7 +107,7 @@ class BookingForm extends Component {
     const { bookingForm } = this.state;
 
     return (
-      <form className={classes.container} autoComplete="off">
+      <form className={classes.gridContainer} autoComplete="off">
         {/* Zip Code */}
         <TextField
           id="outlined-zipCode"

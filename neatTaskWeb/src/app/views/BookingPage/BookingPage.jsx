@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
-import { BookingForm } from "../../containers";
-import Layout from "../../layout/Layout.jsx";
+import { BookingForm, Layout } from "../../containers";
 
 class BookingPage extends Component {
   render() {

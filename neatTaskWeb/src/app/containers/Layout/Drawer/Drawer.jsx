@@ -8,7 +8,7 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { withStyles } from "@material-ui/core/styles";
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const styles = theme => ({
   root: {
@@ -21,6 +21,10 @@ const styles = theme => ({
   drawerPaper: {
     width: drawerWidth,
   },
+  listItem: {
+    borderTopRightRadius: 50,
+    borderBottomRightRadius: 50,
+  },
 });
 
 const ResponsiveDrawer = (props) => {
@@ -32,7 +36,7 @@ const ResponsiveDrawer = (props) => {
       <Divider />
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
+          <ListItem button key={text} className={classes.listItem}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -41,7 +45,7 @@ const ResponsiveDrawer = (props) => {
       <Divider />
       <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
+          <ListItem button key={text} className={classes.listItem}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>

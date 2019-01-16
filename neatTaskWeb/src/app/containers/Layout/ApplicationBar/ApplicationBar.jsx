@@ -15,17 +15,17 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import SettingIcon from "@material-ui/icons/Settings";
-
-// Jss
 import { fade } from '@material-ui/core/styles/colorManipulator';
-
+// Jss
 const styles = theme => ({
   root: {
+   display: 'flex',
     zIndex: theme.zIndex.drawer + 1,
+  },
+  toolbar: {
+    minHeight: theme.spacing.unit * 8,
   },
   grow: {
     flexGrow: 1,
@@ -54,7 +54,7 @@ const styles = theme => ({
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing.unit * 3,
-      width: 'auto',
+      width: theme.spacing.unit * 47,
     },
   },
   searchIcon: {
@@ -77,9 +77,6 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit * 10,
     transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: 200,
-    },
   },
   sectionDesktop: {
     display: 'none',
@@ -95,15 +92,10 @@ const styles = theme => ({
   },
 });
 
-class Header extends Component {
+class ApplicationBar extends Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
-  };
-
-  handleProfileMenuOpen = event => {
-    // noinspection JSCheckFunctionSignatures
-    this.setState({ anchorEl: event.currentTarget });
   };
 
   handleMenuClose = () => {
@@ -136,8 +128,6 @@ class Header extends Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
       </Menu>
     );
 
@@ -157,7 +147,7 @@ class Header extends Component {
           </IconButton>
           <p>Settings</p>
         </MenuItem>
-        <MenuItem onClick={this.handleProfileMenuOpen}>
+        <MenuItem>
           <IconButton color="inherit">
             <AccountCircle />
           </IconButton>
@@ -169,7 +159,7 @@ class Header extends Component {
     return (
       <Fragment>
         <AppBar position="absolute" className={classes.root}>
-          <Toolbar>
+          <Toolbar className={classes.toolbar}>
             <IconButton
               color="inherit"
               aria-label="Open drawer"
@@ -178,7 +168,7 @@ class Header extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+            <Typography className={classes.title} variant="h6" color="inherit" >
               NeatTask
             </Typography>
             <div className={classes.search}>
@@ -197,21 +187,13 @@ class Header extends Component {
             <div className={classes.sectionDesktop}>
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
+                  <SettingIcon />
                 </Badge>
               </IconButton>
               <IconButton color="inherit">
                 <Badge badgeContent={17} color="secondary">
-                  <NotificationsIcon />
+                  <AccountCircle />
                 </Badge>
-              </IconButton>
-              <IconButton
-                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
               </IconButton>
             </div>
             <div className={classes.sectionMobile}>
@@ -228,8 +210,8 @@ class Header extends Component {
   }
 }
 
-Header.propTypes = {
+ApplicationBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Header);
+export default withStyles(styles)(ApplicationBar);

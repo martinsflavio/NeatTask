@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { UserInfo, GridItem, GridContainer } from "../../components";
-import Layout from "../../layout/Layout.jsx";
+import { Layout } from "../../containers";
 
 class ProfilePage extends Component {
   render() {

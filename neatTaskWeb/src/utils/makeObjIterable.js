@@ -1,4 +1,5 @@
 import objDeepCopy from "./objDeepCopy";
+/*
 import * as rNames from "./formValidation/constants/rulesNames";
 
 const state = {
@@ -62,7 +63,7 @@ const state = {
     }
   },
 };
-/*
+
 Object.entries(state.bookingForm).forEach(([key, obj]) =>{
 
   console.log(key);

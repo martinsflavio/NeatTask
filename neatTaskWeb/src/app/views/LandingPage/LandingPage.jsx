@@ -6,7 +6,7 @@ import { CardMedia } from "@material-ui/core";
 
 // styled components
 import { GridContainer, GridItem } from "../../components";
-import Layout from "../../layout/Layout.jsx";
+import { Layout } from "../../containers";
 
 // Jss
 import styles from "./landingPageStyle.js";

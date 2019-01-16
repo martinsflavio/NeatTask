@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core";
-import Header from "./Header/Header.jsx";
+import Header from "./ApplicationBar/ApplicationBar.jsx";
 import Drawer from "./Drawer/Drawer.jsx";
+import { GridContainer } from "../../components";
 
 const styles = theme => ({
   root: {
@@ -10,7 +11,11 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
+    paddingTop: theme.spacing.unit * 9,
+  },
+  contentMaxWidth: {
+    maxWidth: theme.spacing.unit * 96,
+    border: "1px solid black"
   },
 });
 
@@ -31,10 +36,14 @@ class Layout extends Component {
       <div className={classes.root} >
         <Header drawerToogle={this.handleDrawerToggle} />
         <Drawer drawerToogle={this.handleDrawerToggle} mobileOpen={mobileOpen} />
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          {children}
-        </main>
+
+          <GridContainer className={classes.content} component="main" direction="row" justify="center" alignItems="center">
+
+            <div className={classes.contentMaxWidth}>
+              {children}
+            </div>
+          </GridContainer>
+
       </div>
     );
   }

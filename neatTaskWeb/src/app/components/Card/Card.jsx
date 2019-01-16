@@ -9,13 +9,17 @@ import { GridItem, GridContainer } from "../../components";
 
 const styles = theme => ({
   root: {
-    borderRadius: "10px",
     border: `1px solid ${grey[400]}`,
   },
-  container: {
+  gridContainer: {
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
   },
+  button: {
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 0,
+  },
+
 });
 
 const Card = props => {
@@ -23,9 +27,9 @@ const Card = props => {
   const listOfItem = ["Standard Cleaning", "Deep Cleaning", "Move In", "Move Out"];
 
   return (
-    <Paper className={classes.root} elevation={3}>
+    <Paper className={classes.root} elevation={0}>
       <GridContainer
-        className={classes.container}
+        className={classes.gridContainer}
         direction="row"
          justify="flex-start"
          alignItems="flex-start"
@@ -40,9 +44,10 @@ const Card = props => {
           }
         </GridItem>
       </GridContainer>
-
       <Divider />
-      <Button hover="true"  href="/" color="primary" component="a" fullWidth>get started</Button>
+      <Button className={classes.button} href="/" fullWidth>
+        get started
+      </Button>
     </Paper>
   );
 };

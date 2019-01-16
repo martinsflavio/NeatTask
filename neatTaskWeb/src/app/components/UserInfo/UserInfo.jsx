@@ -3,16 +3,20 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 // styled components
-import {
-  Card,
-  GridContainer,
-  GridItem } from "../../components";
-// Jss
-import styles from "./UserInfoStyle.js";
+import { Card, GridContainer, GridItem, Avatar} from "../../components";
 // img
 import avatarPh from "../../../assets/img/avatarPh.png";
 
-function PaperSheet(props) {
+const styles = theme => ({
+  root: {
+    marginTop: `${theme.spacing.unit * 3}px`,
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+  },
+});
+
+const PaperSheet = (props) => {
   const { classes } = props;
   const userData = {
     name: "John Das Couves",
@@ -33,12 +37,19 @@ function PaperSheet(props) {
   return (
     <div className={classes.root} >
       <GridContainer  direction="row" justify="center" alignItems="center">
-        <Card/>
+        <GridItem xs={12}>
+          <Avatar avatarSize="lg" img={userData.photo}/>
+          <Typography align="center" color="inherit" variant="h4" gutterBottom>
+            {userData.name}</Typography>
+        </GridItem>
+        <GridItem xs={12}>
+          <Card/>
+        </GridItem>
       </GridContainer>
     </div>
 
   );
-}
+};
 
 PaperSheet.propTypes = {
   classes: PropTypes.object.isRequired,

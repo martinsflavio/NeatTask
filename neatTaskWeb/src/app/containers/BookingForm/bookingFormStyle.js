@@ -1,5 +1,5 @@
 const styles = theme => ({
-  container: {
+  gridContainer: {
     display: 'flex',
     flexWrap: 'wrap',
   },
