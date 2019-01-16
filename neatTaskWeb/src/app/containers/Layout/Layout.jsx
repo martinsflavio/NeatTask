@@ -9,14 +9,14 @@ const styles = theme => ({
   root: {
     display: 'flex'
   },
-  toolbar: theme.mixins.toolbar,
-  content: {
+  contentWrapper: {
     flexGrow: 1,
-    paddingTop: theme.spacing.unit * 9,
+    marginTop: theme.mixins.toolbar.minHeight,
   },
-  contentMaxWidth: {
+  contentArea: {
     maxWidth: theme.spacing.unit * 96,
-    border: "1px solid black"
+    minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+    border: '1px solid black',
   },
 });
 
@@ -37,10 +37,8 @@ class Layout extends Component {
       <div className={classes.root} >
         <Header drawerToogle={this.handleDrawerToggle} />
         <Drawer drawerToogle={this.handleDrawerToggle} mobileOpen={mobileOpen} />
-
-          <GridContainer className={classes.content} component="main" direction="row" justify="center" alignItems="center">
-
-            <div className={classes.contentMaxWidth}>
+          <GridContainer className={classes.contentWrapper} component="main" direction="row" justify="center" alignItems="center">
+            <div className={classes.contentArea}>
               {children}
             </div>
           </GridContainer>

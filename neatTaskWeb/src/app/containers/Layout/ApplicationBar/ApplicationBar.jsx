@@ -25,9 +25,6 @@ const styles = theme => ({
    display: 'flex',
     zIndex: theme.zIndex.drawer + 1,
   },
-  toolbar: {
-    minHeight: theme.spacing.unit * 8,
-  },
   grow: {
     flexGrow: 1,
   },
@@ -160,7 +157,7 @@ class ApplicationBar extends Component {
     return (
       <Fragment>
         <AppBar position="fixed" className={classes.root}>
-          <Toolbar className={classes.toolbar}>
+          <Toolbar>
             <IconButton
               color="inherit"
               aria-label="Open drawer"
