@@ -7,6 +7,9 @@ const appTheme = createMuiTheme({
   },
   shape: {
     borderRadius: 10,
+  },
+  spacing: {
+    unit: 8
   }
 });
 

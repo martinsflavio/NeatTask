@@ -4,6 +4,7 @@ import Header from "./ApplicationBar/ApplicationBar.jsx";
 import Drawer from "./Drawer/Drawer.jsx";
 import { GridContainer } from "../../components";
 
+// Jss
 const styles = theme => ({
   root: {
     display: 'flex'

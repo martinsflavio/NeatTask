@@ -8,18 +8,17 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { withStyles } from "@material-ui/core/styles";
 
-const drawerWidth = 200;
-
+// Jss
 const styles = theme => ({
   root: {
     [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
+      width: theme.spacing.unit * 25,
       flexShrink: 0,
     },
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth,
+    width: theme.spacing.unit * 25,
   },
   listItem: {
     borderTopRightRadius: 50,

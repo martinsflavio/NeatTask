@@ -18,6 +18,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import SettingIcon from "@material-ui/icons/Settings";
 import { fade } from '@material-ui/core/styles/colorManipulator';
+
 // Jss
 const styles = theme => ({
   root: {
@@ -158,7 +159,7 @@ class ApplicationBar extends Component {
 
     return (
       <Fragment>
-        <AppBar position="absolute" className={classes.root}>
+        <AppBar position="fixed" className={classes.root}>
           <Toolbar className={classes.toolbar}>
             <IconButton
               color="inherit"
