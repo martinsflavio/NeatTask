@@ -2,8 +2,9 @@ import React, { Component } from "react";
 // @material-ui core
 import { withStyles } from "@material-ui/core";
 // styled components
-import { UserInfo, GridItem, GridContainer } from "../../components";
+import { GridItem, GridContainer } from "../../components";
 import { Layout } from "../../containers";
+import CreateAccount from "./CreateAccount/CreateAccount.jsx";
 
 const styles = theme => ({
   grid: {
@@ -18,7 +19,7 @@ class ProfilePage extends Component {
       <Layout>
         <GridContainer className={classes.grid} direction="row" justify="center" alignItems="flex-start">
           <GridItem className={classes.grid} xs={12} >
-            <UserInfo />
+            <CreateAccount />
           </GridItem>
         </GridContainer>
       </Layout>

@@ -19,7 +19,6 @@ const styles = theme => ({
   contentArea: {
     maxWidth: theme.spacing.unit * 96,
     minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
-    border: '1px solid black',
     padding: 0,
     margin: 0
   },
@@ -42,12 +41,11 @@ class Layout extends Component {
       <div className={classes.root} >
         <Header drawerToogle={this.handleDrawerToggle} />
         <Drawer drawerToogle={this.handleDrawerToggle} mobileOpen={mobileOpen} />
-          <GridContainer className={classes.contentWrapper} component="main" direction="row" justify="center" alignItems="center">
-            <div className={classes.contentArea}>
-              {children}
-            </div>
-          </GridContainer>
-
+        <GridContainer className={classes.contentWrapper} component="main" direction="row" justify="center" alignItems="center">
+          <div className={classes.contentArea}>
+            {children}
+          </div>
+        </GridContainer>
       </div>
     );
   }

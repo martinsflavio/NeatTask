@@ -10,7 +10,25 @@ import objDeepCopy from "../../../utils/objDeepCopy.js";
 import { iNames, rNames, iValidator, fValidator } from "../../../utils/formValidation/index.js";
 // styled components
 import { ButtonFullWidth } from "../../components/index.js";
-import styles from "./bookingFormStyle.js";
+
+// Jss
+const styles = theme => ({
+  gridContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+});
 
 class BookingForm extends Component {
   state = {
