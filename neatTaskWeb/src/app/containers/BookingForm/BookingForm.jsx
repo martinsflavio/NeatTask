@@ -282,7 +282,7 @@ BookingForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-// injecting Material UI theme
+// injecting Jss
 const BookingFormWithStyle = withStyles(styles)(BookingForm);
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingFormWithStyle);

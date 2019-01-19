@@ -45,7 +45,7 @@ const Card = props => {
         </GridItem>
       </GridContainer>
       <Divider />
-      <Button className={classes.button} href="/" fullWidth>
+      <Button className={classes.button} href="/"fullWidth>
         get started
       </Button>
     </Paper>

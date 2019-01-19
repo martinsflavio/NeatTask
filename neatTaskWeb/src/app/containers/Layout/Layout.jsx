@@ -12,11 +12,16 @@ const styles = theme => ({
   contentWrapper: {
     flexGrow: 1,
     marginTop: theme.mixins.toolbar.minHeight,
+    padding: 0,
+    marginRight: 0,
+    marginLeft: 0,
   },
   contentArea: {
     maxWidth: theme.spacing.unit * 96,
     minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
     border: '1px solid black',
+    padding: 0,
+    margin: 0
   },
 });
 
