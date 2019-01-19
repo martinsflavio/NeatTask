@@ -2,17 +2,33 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import objDeepCopy from "../../../../utils/objDeepCopy.js";
+// @material-ui core
+import { Divider, Typography } from "@material-ui/core";
 // styled components
-import {Input} from "../../../components";
+import { Input, Card, Avatar, GridContainer, GridItem, ButtonFullWidth } from "../../../components";
 
 // bookingForm validation
 import { rNames, iValidator, fValidator } from "../../../../utils/formValidation";
+// img
+import userImg from "../../../../assets/img/avatarPh.png";
 
 // Jss
 const styles = theme => ({
+  root:{
+    padding: 0,
+    margin: 0
+  },
   gridContainer: {
     display: 'flex',
     flexWrap: 'wrap',
+    padding: 0,
+  },
+  gridItem: {
+    margin: 0,
+    padding: 0,
+  },
+  ButtonFullWidth: {
+    padding: theme.spacing.unit,
   },
 });
 
@@ -20,51 +36,29 @@ class CreateAccountForm extends Component {
   state = {
     okToSubmit: false,
     bookingForm: {
-      zipCode: {
-        label: "Zip Code",
-        value:"",
-        isRequired: true,
+      firstName: {
+        label: "First Name",
+        value: "",
         isValid: false,
         isError: false,
-        errorMessage: "Please valid zip code required.",
-        validations: [
-          rNames.required,
-          rNames.isZipCode
-        ]
+        errorMessage: "First name required",
+        validations: [rNames.required]
       },
-      beds: {
-        value:"",
+      lastName: {
+        label: "LastName",
+        value: "",
         isValid: false,
-        nBeds: [0,1,2,3,4,5,6,7,8,9,10],
         isError: false,
-        errorMessage: "",
-        validations: [{[rNames.isRange]: {max: 10, min: 0}}]
+        errorMessage: "Last name required",
+        validations: [rNames.required]
       },
-      baths: {
-        value:"",
-        isValid: false,
-        nBaths: [0,1,2,3,4,5,6,7,8,9,10],
-        isError: false,
-        errorMessage: "",
-        validations: [{[rNames.isRange]: {max: 10, min: 0}}]
-      },
-      date: {
-        value:"",
-        isRequired: true,
+      phoneNumber: {
+        label: "Phone Number",
+        value: "",
         isValid: false,
         isError: false,
-        errorMessage: "Invalid Date",
-        validations: [
-          rNames.required,
-          rNames.isDate
-        ]
-      },
-      time: {
-        value:"",
-        isValid: false,
-        isError: false,
-        errorMessage: "Invalid Time",
-        validations: [rNames.isTime]
+        errorMessage: "Please enter a valid phone number",
+        validations: [rNames.required]
       },
       email: {
         label: "Email",
@@ -72,9 +66,15 @@ class CreateAccountForm extends Component {
         isValid: false,
         isError: false,
         errorMessage: "Invalid Email",
-        validations: [
-          rNames.isEmail
-        ]
+        validations: [rNames.required]
+      },
+      password: {
+        label: "Password",
+        value: "",
+        isValid: false,
+        isError: false,
+        errorMessage: "Must contain at least 6 characters",
+        validations: [rNames.required]
       }
     },
   };
@@ -111,18 +111,49 @@ class CreateAccountForm extends Component {
     const { bookingForm } = this.state;
 
     return (
-      <form className={classes.gridContainer} autoComplete="off">
-        <Input
-          id="zipCode"
-          inputObj={bookingForm.zipCode}
-          handleChange={this.handleChange}
-          handleValidation={this.handleInputValidation}/>
-        <Input
-          id="email"
-          inputObj={bookingForm.email}
-          handleChange={this.handleChange}
-          handleValidation={this.handleInputValidation}/>
-      </form>
+      <GridContainer className={classes.root} direction="column" justify="center" alignItems="stretch">
+        <GridItem className={classes.gridItem} xs={12}>
+          <Card style={{paddingBottom: 0}}>
+            <Avatar size="lg" src={userImg} />
+            <Typography align="center" variant="h6">
+              Fulano das Neves
+            </Typography>
+            <Divider variant="middle" />
+
+            <form className={classes.gridContainer} autoComplete="off">
+              <Input
+                id="firstName"
+                inputObj={bookingForm.firstName}
+                handleChange={this.handleChange}
+                handleValidation={this.handleInputValidation}/>
+              <Input
+                id="lastName"
+                inputObj={bookingForm.lastName}
+                handleChange={this.handleChange}
+                handleValidation={this.handleInputValidation}/>
+              <Input
+                id="phoneNumber"
+                inputObj={bookingForm.phoneNumber}
+                handleChange={this.handleChange}
+                handleValidation={this.handleInputValidation}/>
+              <Input
+                id="email"
+                inputObj={bookingForm.email}
+                handleChange={this.handleChange}
+                handleValidation={this.handleInputValidation}/>
+              <Input
+                id="password"
+                inputObj={bookingForm.password}
+                handleChange={this.handleChange}
+                handleValidation={this.handleInputValidation}/>
+            </form>
+            <Divider/>
+            <ButtonFullWidth color="primary">
+              Save
+            </ButtonFullWidth>
+          </Card>
+        </GridItem>
+      </GridContainer>
     );
   }
 }

@@ -1,27 +1,30 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core";
+import { withStyles, Grid } from "@material-ui/core";
 import Header from "./ApplicationBar/ApplicationBar.jsx";
 import Drawer from "./Drawer/Drawer.jsx";
-import { GridContainer } from "../../components";
 
 // Jss
 const styles = theme => ({
   root: {
-    display: 'flex'
+    display: 'flex',
   },
-  contentWrapper: {
+  mainContentArea: {
+    display: 'flex',
     flexGrow: 1,
-    marginTop: theme.mixins.toolbar.minHeight,
-    padding: 0,
-    marginRight: 0,
-    marginLeft: 0,
+    minHeight: 'calc(100vh)',
+    margin: 0,
+    paddingTop: theme.mixins.toolbar.minHeight,
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: theme.mixins.toolbar.minHeight + theme.spacing.unit,
+    },
   },
-  contentArea: {
-    maxWidth: theme.spacing.unit * 96,
-    minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+  mainWrapper: {
+    flexGrow: 1,
+    alignItems: 'stretch',
+    margin: theme.spacing.unit * 1,
     padding: 0,
-    margin: 0
-  },
+    maxWidth: "800px",
+  }
 });
 
 class Layout extends Component {
@@ -41,11 +44,11 @@ class Layout extends Component {
       <div className={classes.root} >
         <Header drawerToogle={this.handleDrawerToggle} />
         <Drawer drawerToogle={this.handleDrawerToggle} mobileOpen={mobileOpen} />
-        <GridContainer className={classes.contentWrapper} component="main" direction="row" justify="center" alignItems="center">
-          <div className={classes.contentArea}>
-            {children}
-          </div>
-        </GridContainer>
+        <Grid container className={classes.mainContentArea} direction="row" justify="center" alignItems="flex-start">
+          <main className={classes.mainWrapper} >
+            { children }
+          </main>
+        </Grid>
       </div>
     );
   }

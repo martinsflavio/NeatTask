@@ -18,3 +18,5 @@ export const minStringLength = "minStringLength";
 export const required = "required";
 export const trim = "trim";
 export const isTimePast = "isTimePast";
+export const isExisty = "isExisty";
+

@@ -25,16 +25,18 @@ const styles = {
 };
 
 function AvatarImg(props) {
-  const { classes, avatarSize, img } = props;
+  const { classes, size, src, ...rest } = props;
   return (
     <Grid container direction="row" justify="center" alignItems="center">
-      <Avatar alt="User Avatar" src={img} className={classes[avatarSize]} />
+      <Avatar alt="User Avatar" src={src} className={classes[size]} {...rest} />
     </Grid>
   );
 }
 
 AvatarImg.propTypes = {
   classes: PropTypes.object.isRequired,
+  size: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(AvatarImg);

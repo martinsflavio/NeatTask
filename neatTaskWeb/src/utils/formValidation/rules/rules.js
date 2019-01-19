@@ -23,6 +23,7 @@ const rules = {
     const validationRegexp = (regexp instanceof RegExp ? regexp : (new RegExp(regexp)));
     return (isEmpty(value) || validationRegexp.test(value));
   },
+  isExisty: value => isExisty(value),
 
   isEmpty: value => isEmpty(value),
 
