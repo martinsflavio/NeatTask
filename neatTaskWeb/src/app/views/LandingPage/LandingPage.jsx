@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // material-ui core
@@ -6,7 +6,7 @@ import { CardMedia } from "@material-ui/core";
 
 // styled components
 import { GridContainer, GridItem } from "../../components";
-import { HeaderCustom } from "../../containers";
+import { Layout } from "../../containers";
 
 // Jss
 import styles from "./landingPageStyle.js";
@@ -25,8 +25,7 @@ class LandingPage extends Component {
     const { classes } = this.props;
 
     return (
-      <Fragment>
-        <HeaderCustom />
+      <Layout>
         <CardMedia className={classes.media} image={bannerImg} />
         <GridContainer direction="row" justify="center" alignItems="flex-start">
           <GridItem xs={12} >
@@ -42,7 +41,7 @@ class LandingPage extends Component {
             <TopCleaners />
           </GridItem>
         </GridContainer>
-      </Fragment>
+      </Layout>
     )
   }
 }

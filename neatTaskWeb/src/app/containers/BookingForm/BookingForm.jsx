@@ -10,7 +10,25 @@ import objDeepCopy from "../../../utils/objDeepCopy.js";
 import { iNames, rNames, iValidator, fValidator } from "../../../utils/formValidation/index.js";
 // styled components
 import { ButtonFullWidth } from "../../components/index.js";
-import styles from "./bookingFormStyle.js";
+
+// Jss
+const styles = theme => ({
+  gridContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+});
 
 class BookingForm extends Component {
   state = {
@@ -107,7 +125,7 @@ class BookingForm extends Component {
     const { bookingForm } = this.state;
 
     return (
-      <form className={classes.container} autoComplete="off">
+      <form className={classes.gridContainer} autoComplete="off">
         {/* Zip Code */}
         <TextField
           id="outlined-zipCode"
@@ -282,7 +300,7 @@ BookingForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-// injecting Material UI theme
+// injecting Jss
 const BookingFormWithStyle = withStyles(styles)(BookingForm);
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingFormWithStyle);

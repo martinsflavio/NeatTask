@@ -2,3 +2,5 @@ package-lock.json
 yarn.lock
 /.idea/*
 /node_modules
+/mobile_screens/*
+.DS_Store
