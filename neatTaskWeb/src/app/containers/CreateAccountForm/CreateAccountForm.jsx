@@ -5,7 +5,6 @@ import objDeepCopy from "../../../utils/objDeepCopy.js";
 // @material-ui core
 import { Divider, Typography } from "@material-ui/core";
 // styled components
-import { Layout } from "../../containers/index";
 import {
   Input, Card, Avatar, GridContainer,
   GridItem, ButtonFullWidth } from "../../components/index";
@@ -112,56 +111,54 @@ class CreateAccountForm extends Component {
     const { bookingForm } = this.state;
 
     return (
-      <Layout>
-        <GridContainer className={classes.root} direction="column" justify="center" alignItems="stretch">
-          <GridItem className={classes.gridItem} xs={12}>
-            <Card style={{paddingBottom: 0}}>
-              <Avatar size="lg" src={userImg} />
-              <Divider variant="middle" />
+      <GridContainer className={classes.root} direction="column" justify="center" alignItems="stretch">
+        <GridItem className={classes.gridItem} xs={12}>
+          <Card style={{paddingBottom: 0}}>
+            <Avatar size="lg" src={userImg} />
+            <Divider variant="middle" />
 
-              <form className={classes.gridContainer} autoComplete="off">
-                <GridItem xs={12}>
-                  <Typography variant="h6">Personal Information</Typography>
-                </GridItem>
-                <Input
-                  id="firstName"
-                  inputObj={bookingForm.firstName}
-                  handleChange={this.handleChange}
-                  handleValidation={this.handleInputValidation}/>
-                <Input
-                  id="lastName"
-                  inputObj={bookingForm.lastName}
-                  handleChange={this.handleChange}
-                  handleValidation={this.handleInputValidation}/>
-                <Input
-                  id="phoneNumber"
-                  inputObj={bookingForm.phoneNumber}
-                  handleChange={this.handleChange}
-                  handleValidation={this.handleInputValidation}/>
-                <GridItem xs={12}>
-                  <Typography variant="h6">Credentials</Typography>
-                </GridItem>
-                <Input
-                  id="email"
-                  inputObj={bookingForm.email}
-                  handleChange={this.handleChange}
-                  handleValidation={this.handleInputValidation}/>
-                <Input
-                  id="passWord"
-                  inputObj={bookingForm.password}
-                  handleChange={this.handleChange}
-                  handleValidation={this.handleInputValidation}/>
-              </form>
+            <form className={classes.gridContainer} autoComplete="off">
+              <GridItem xs={12}>
+                <Typography variant="h6">Personal Information</Typography>
+              </GridItem>
+              <Input
+                id="firstName"
+                inputObj={bookingForm.firstName}
+                handleChange={this.handleChange}
+                handleValidation={this.handleInputValidation}/>
+              <Input
+                id="lastName"
+                inputObj={bookingForm.lastName}
+                handleChange={this.handleChange}
+                handleValidation={this.handleInputValidation}/>
+              <Input
+                id="phoneNumber"
+                inputObj={bookingForm.phoneNumber}
+                handleChange={this.handleChange}
+                handleValidation={this.handleInputValidation}/>
+              <GridItem xs={12}>
+                <Typography variant="h6">Credentials</Typography>
+              </GridItem>
+              <Input
+                id="email"
+                inputObj={bookingForm.email}
+                handleChange={this.handleChange}
+                handleValidation={this.handleInputValidation}/>
+              <Input
+                id="passWord"
+                inputObj={bookingForm.password}
+                handleChange={this.handleChange}
+                handleValidation={this.handleInputValidation}/>
+            </form>
 
-              <Divider />
+            <Divider />
 
-              <ButtonFullWidth color="primary" >
-                Save
-              </ButtonFullWidth>
-            </Card>
-          </GridItem>
-        </GridContainer>
-      </Layout>
+            <ButtonFullWidth color="primary" >
+              Save
+            </ButtonFullWidth>
+          </Card>
+        </GridItem>
+      </GridContainer>
     );
   }
 }
