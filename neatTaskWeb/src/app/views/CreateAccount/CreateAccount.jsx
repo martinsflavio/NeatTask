@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import objDeepCopy from "../../../../utils/objDeepCopy.js";
+import objDeepCopy from "../../../utils/objDeepCopy.js";
 // @material-ui core
 import { Divider, Typography } from "@material-ui/core";
 // styled components
-import { Input, Card, Avatar, GridContainer, GridItem, ButtonFullWidth } from "../../../components";
+import { Layout } from "../../containers/index";
+import {
+  Input, Card, Avatar, GridContainer,
+  GridItem, ButtonFullWidth } from "../../components/index";
 
 // bookingForm validation
-import { rNames, iValidator, fValidator } from "../../../../utils/formValidation";
+import { rNames, iValidator, fValidator } from "../../../utils/formValidation/index";
 // img
-import userImg from "../../../../assets/img/avatarPh.png";
+import userImg from "../../../assets/img/avatarPh.png";
 
 // Jss
 const styles = theme => ({
@@ -22,13 +25,11 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     padding: 0,
+    marginBottom: theme.spacing.unit * 3,
   },
   gridItem: {
     margin: 0,
     padding: 0,
-  },
-  ButtonFullWidth: {
-    padding: theme.spacing.unit,
   },
 });
 
@@ -111,49 +112,56 @@ class CreateAccountForm extends Component {
     const { bookingForm } = this.state;
 
     return (
-      <GridContainer className={classes.root} direction="column" justify="center" alignItems="stretch">
-        <GridItem className={classes.gridItem} xs={12}>
-          <Card style={{paddingBottom: 0}}>
-            <Avatar size="lg" src={userImg} />
-            <Typography align="center" variant="h6">
-              Fulano das Neves
-            </Typography>
-            <Divider variant="middle" />
+      <Layout>
+        <GridContainer className={classes.root} direction="column" justify="center" alignItems="stretch">
+          <GridItem className={classes.gridItem} xs={12}>
+            <Card style={{paddingBottom: 0}}>
+              <Avatar size="lg" src={userImg} />
+              <Divider variant="middle" />
 
-            <form className={classes.gridContainer} autoComplete="off">
-              <Input
-                id="firstName"
-                inputObj={bookingForm.firstName}
-                handleChange={this.handleChange}
-                handleValidation={this.handleInputValidation}/>
-              <Input
-                id="lastName"
-                inputObj={bookingForm.lastName}
-                handleChange={this.handleChange}
-                handleValidation={this.handleInputValidation}/>
-              <Input
-                id="phoneNumber"
-                inputObj={bookingForm.phoneNumber}
-                handleChange={this.handleChange}
-                handleValidation={this.handleInputValidation}/>
-              <Input
-                id="email"
-                inputObj={bookingForm.email}
-                handleChange={this.handleChange}
-                handleValidation={this.handleInputValidation}/>
-              <Input
-                id="password"
-                inputObj={bookingForm.password}
-                handleChange={this.handleChange}
-                handleValidation={this.handleInputValidation}/>
-            </form>
-            <Divider/>
-            <ButtonFullWidth color="primary">
-              Save
-            </ButtonFullWidth>
-          </Card>
-        </GridItem>
-      </GridContainer>
+              <form className={classes.gridContainer} autoComplete="off">
+                <GridItem xs={12}>
+                  <Typography variant="h6">Personal Information</Typography>
+                </GridItem>
+                <Input
+                  id="firstName"
+                  inputObj={bookingForm.firstName}
+                  handleChange={this.handleChange}
+                  handleValidation={this.handleInputValidation}/>
+                <Input
+                  id="lastName"
+                  inputObj={bookingForm.lastName}
+                  handleChange={this.handleChange}
+                  handleValidation={this.handleInputValidation}/>
+                <Input
+                  id="phoneNumber"
+                  inputObj={bookingForm.phoneNumber}
+                  handleChange={this.handleChange}
+                  handleValidation={this.handleInputValidation}/>
+                <GridItem xs={12}>
+                  <Typography variant="h6">Credentials</Typography>
+                </GridItem>
+                <Input
+                  id="email"
+                  inputObj={bookingForm.email}
+                  handleChange={this.handleChange}
+                  handleValidation={this.handleInputValidation}/>
+                <Input
+                  id="passWord"
+                  inputObj={bookingForm.password}
+                  handleChange={this.handleChange}
+                  handleValidation={this.handleInputValidation}/>
+              </form>
+
+              <Divider />
+
+              <ButtonFullWidth color="primary" >
+                Save
+              </ButtonFullWidth>
+            </Card>
+          </GridItem>
+        </GridContainer>
+      </Layout>
     );
   }
 }

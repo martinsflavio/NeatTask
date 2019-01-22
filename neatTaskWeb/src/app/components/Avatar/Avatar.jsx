@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Avatar, Grid } from "@material-ui/core";
 
-const styles = {
-  avatar: {
-    margin: 10,
-  },
+const styles = theme => ({
   lg: {
     margin: 10,
     width: 120,
@@ -22,10 +19,11 @@ const styles = {
     width: 30,
     height: 30,
   },
-};
+});
 
 function AvatarImg(props) {
   const { classes, size, src, ...rest } = props;
+
   return (
     <Grid container direction="row" justify="center" alignItems="center">
       <Avatar alt="User Avatar" src={src} className={classes[size]} {...rest} />
