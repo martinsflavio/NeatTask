@@ -1,32 +1,32 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import * as actions from "../../../store/actions/index.js";
 import PropTypes from "prop-types";
-import { MenuItem, TextField } from "@material-ui/core";
-
 import withStyles from "@material-ui/core/styles/withStyles";
 import objDeepCopy from "../../../utils/objDeepCopy.js";
-// bookingForm validation
-import { iNames, rNames, iValidator, fValidator } from "../../../utils/formValidation/index.js";
+// @material-ui core
+import { Divider, Typography, MenuItem } from "@material-ui/core";
 // styled components
-import { ButtonFullWidth } from "../../components/index.js";
+import {
+  Input, Card, GridContainer,
+  GridItem, ButtonFullWidth } from "../../components/index";
+
+// bookingForm validation
+import { rNames, iValidator, fValidator } from "../../../utils/formValidation/index";
 
 // Jss
 const styles = theme => ({
-  gridContainer: {
+  root:{
+    padding: 0,
+    margin: 0
+  },
+  formContainer: {
     display: 'flex',
     flexWrap: 'wrap',
+    padding: 0,
+    marginBottom: theme.spacing.unit * 3,
   },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-
-  },
-  dense: {
-    marginTop: 16,
-  },
-  menu: {
-    width: 200,
+  gridItem: {
+    margin: 0,
+    padding: 0,
   },
 });
 
@@ -34,61 +34,47 @@ class BookingForm extends Component {
   state = {
     okToSubmit: false,
     bookingForm: {
-      zipCode: {
-        value:"",
-        isRequired: true,
-        isValid: false,
-        isError: false,
-        errorMessage: "Please valid zip code required.",
-        validations: [
-          rNames.required,
-          rNames.isZipCode
-        ]
-      },
-      beds: {
-        value:"",
-        isValid: false,
-        nBeds: [0,1,2,3,4,5,6,7,8,9,10],
-        isError: false,
-        errorMessage: "",
-        validations: [{[rNames.isRange]: {max: 10, min: 0}}]
-      },
-      baths: {
-        value:"",
-        isValid: false,
-        nBaths: [0,1,2,3,4,5,6,7,8,9,10],
-        isError: false,
-        errorMessage: "",
-        validations: [{[rNames.isRange]: {max: 10, min: 0}}]
-      },
-      date: {
-        value:"",
-        isRequired: true,
-        isValid: false,
-        isError: false,
-        errorMessage: "Invalid Date",
-        validations: [
-          rNames.required,
-          rNames.isDate
-        ]
-      },
-      time: {
-        value:"",
-        isValid: false,
-        isError: false,
-        errorMessage: "Invalid Time",
-        validations: [rNames.isTime]
-      },
-      email: {
+      cleaningTitle: {
+        label: "Cleaning Title",
         value: "",
-        isRequired: true,
         isValid: false,
         isError: false,
-        errorMessage: "Invalid Email",
-        validations: [
-          rNames.required,
-          rNames.isEmail
-        ]
+        errorMessage: "Please provide a title to you cleaning",
+        validations: [rNames.required]
+      },
+      bedroom: {
+        label: "Beds",
+        value: "",
+        nBeds: [0,1,2,3,4,5,6,7,8,9,10],
+        isValid: false,
+        isError: false,
+        errorMessage: "Select a number of bedrooms",
+        validations: [rNames.required]
+      },
+      bathroom: {
+        label: "Baths",
+        value: "",
+        nBaths: [0,1,2,3,4,5,6,7,8,9,10],
+        isValid: false,
+        isError: false,
+        errorMessage: "Select a number of bedrooms",
+        validations: [rNames.required]
+      },
+      sqft: {
+        label: "Sq. Ft.",
+        value: "",
+        isValid: false,
+        isError: false,
+        errorMessage: "Only numbers",
+        validations: []
+      },
+      password: {
+        label: "Password",
+        value: "",
+        isValid: false,
+        isError: false,
+        errorMessage: "Must contain at least 6 characters",
+        validations: [rNames.required]
       }
     },
   };
@@ -110,7 +96,7 @@ class BookingForm extends Component {
     e.preventDefault();
     let newState = objDeepCopy(this.state);
     const { okToSubmit, bookingForm } = fValidator(newState.bookingForm);
-    
+
     if (okToSubmit) {
       this.props.postBookingForm(bookingForm);
     } else {
@@ -119,188 +105,93 @@ class BookingForm extends Component {
       this.setState({...newState});
     }
   };
-        
+
   render() {
     const { classes } = this.props;
     const { bookingForm } = this.state;
 
     return (
-      <form className={classes.gridContainer} autoComplete="off">
-        {/* Zip Code */}
-        <TextField
-          id="outlined-zipCode"
-          label="Zip Code"
-          margin="normal"
-          variant="outlined"
-          fullWidth
-          className={classes.textField}
-          required={bookingForm[iNames.zipCode].isRequired}
-          value={bookingForm[iNames.zipCode].value}
-          error={bookingForm[iNames.zipCode].isError}
-          helperText={
-            bookingForm[iNames.zipCode].isError ?
-              bookingForm[iNames.zipCode].errorMessage : null
-          }
-          onChange={this.handleChange(iNames.zipCode)}
-          onBlur={this.handleInputValidation(iNames.zipCode)}
-        />
+      <GridContainer className={classes.root} direction="column" justify="center" alignItems="stretch">
+        <GridItem className={classes.gridItem} xs={12}>
+          <Card style={{paddingBottom: 0}}>
+            <GridItem xs={12}>
+              <Typography variant="h6">Booking</Typography>
+            </GridItem>
 
-        {/* Beds */}
-        <TextField
-          id="outlined-select-beds"
-          label="Beds"
-          margin="normal"
-          variant="outlined"
-          select fullWidth
-          className={classes.textField}
-          required={bookingForm[iNames.beds].isRequired}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          value={bookingForm[iNames.beds].value}
-          error={bookingForm[iNames.beds].isError}
-          helperText={
-            bookingForm[iNames.beds].isError ?
-              bookingForm[iNames.beds].errorMessage : null
-          }
-          onChange={this.handleChange(iNames.beds)}
-          onBlur={this.handleInputValidation(iNames.beds)}
-        >
-          {bookingForm.beds.nBeds.map(option => (
-            <MenuItem key={option} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
+            <Divider variant="middle" />
 
-        {/* Baths */}
-        <TextField
-          id="outlined-select-baths"
-          label="Baths"
-          margin="normal"
-          variant="outlined"
-          select fullWidth
-          className={classes.textField}
-          required={bookingForm[iNames.baths].isRequired}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          value={bookingForm[iNames.baths].value}
-          error={bookingForm[iNames.baths].isError}
-          helperText={
-            bookingForm[iNames.baths].isError ?
-              bookingForm[iNames.baths].errorMessage : null
-          }
-          onChange={this.handleChange(iNames.baths)}
-          onBlur={this.handleInputValidation(iNames.baths)}
-        >
-          {bookingForm.baths.nBaths.map(option => (
-            <MenuItem key={option} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
+            <form className={classes.formContainer} autoComplete="off">
+              <GridContainer direction="row" justify="space-evenly" alignItems="stretch">
+                <GridItem xs={12}>
+                  <Input
+                    id="cleaningTitle"
+                    inputObj={bookingForm.cleaningTitle}
+                    handleChange={this.handleChange}
+                    handleValidation={this.handleInputValidation}/>
+                </GridItem>
 
-        {/* Date */}
-        <TextField
-          id="date"
-          label="Date"
-          type="date"
-          margin="normal"
-          variant="outlined"
-          fullWidth
-          className={classes.textField}
-          required={bookingForm[iNames.date].isRequired}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          defaultValue={bookingForm[iNames.date].value}
-          error={bookingForm[iNames.date].isError}
-          helperText={
-            bookingForm[iNames.date].isError ?
-              bookingForm[iNames.date].errorMessage : null
-          }
-          onChange={this.handleChange(iNames.date)}
-          onBlur={this.handleInputValidation(iNames.date)}
-        />
+                <GridItem xs={4}>
+                  <Input
+                    id="bedroom"
+                    select
+                    inputObj={bookingForm.bedroom}
+                    handleChange={this.handleChange}
+                    handleValidation={this.handleInputValidation}>
+                    {bookingForm.bedroom.nBeds.map(option => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Input>
+                </GridItem>
 
-        {/* Time */}
-        <TextField
-          id="time"
-          label="Time"
-          type="time"
-          margin="normal"
-          variant="outlined"
-          fullWidth
-          className={classes.textField}
-          required={bookingForm[iNames.time].isRequired}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          inputProps={{
-            step: 300, // 5 min
-          }}
-          defaultValue={bookingForm[iNames.time].value}
-          error={bookingForm[iNames.time].isError}
-          helperText={
-            bookingForm[iNames.time].isError ?
-              bookingForm[iNames.time].errorMessage : null
-          }
-          onChange={this.handleChange(iNames.time)}
-          onBlur={this.handleInputValidation(iNames.time)}
-        />
+                <GridItem xs={4}>
+                  <Input
+                    id="bathroom"
+                    select
+                    inputObj={bookingForm.bathroom}
+                    handleChange={this.handleChange}
+                    handleValidation={this.handleInputValidation}>
+                    {bookingForm.bathroom.nBaths.map(option => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Input>
+                </GridItem>
 
-        {/* email */}
-        <TextField
-          id="outlined-email"
-          label="Email"
-          margin="normal"
-          variant="outlined"
-          fullWidth
-          className={classes.textField}
-          required={bookingForm[iNames.date].isRequired}
-          value={bookingForm[iNames.email].value}
-          error={bookingForm[iNames.email].isError}
-          helperText={
-            bookingForm[iNames.email].isError ?
-              bookingForm[iNames.email].errorMessage : null
-          }
-          onChange={this.handleChange(iNames.email)}
-          onBlur={this.handleInputValidation(iNames.email)}
-        />
+                <GridItem xs={4}>
+                  <Input
+                    id="sqft"
+                    inputObj={bookingForm.sqft}
+                    handleChange={this.handleChange}
+                    handleValidation={this.handleInputValidation}/>
+                </GridItem>
 
-        <ButtonFullWidth
-          variant="contained"
-          color="primary"
-          onClick={ e => this.handleFormValidationAndSubmit(e) }>
-          Submit
-        </ButtonFullWidth>
-      </form>
+                <GridItem xs={12}>
+                  <Input
+                    id="passWord"
+                    inputObj={bookingForm.password}
+                    handleChange={this.handleChange}
+                    handleValidation={this.handleInputValidation}/>
+                </GridItem>
+              </GridContainer>
+            </form>
+
+            <Divider />
+
+            <ButtonFullWidth color="primary" >
+              Save
+            </ButtonFullWidth>
+          </Card>
+        </GridItem>
+      </GridContainer>
     );
   }
 }
-
-const mapStateToProps = ({bookingReducer}) => {
-  return {
-    bookingReducer
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    postBookingForm: formObj => dispatch(actions.postBookingForm(formObj))
-  }
-};
 
 BookingForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-// injecting Jss
-const BookingFormWithStyle = withStyles(styles)(BookingForm);
-
-export default connect(mapStateToProps, mapDispatchToProps)(BookingFormWithStyle);
+export default  withStyles(styles)(BookingForm);
