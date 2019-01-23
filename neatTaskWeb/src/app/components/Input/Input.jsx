@@ -5,14 +5,13 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 // Jss
 const styles = theme => ({
-  gridContainer: {
+  formContainer: {
     display: 'flex',
     flexWrap: 'wrap',
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-
+    marginLeft: 0,
+    marginRight: 0,
   },
   dense: {
     marginTop: 16,
@@ -23,7 +22,7 @@ const styles = theme => ({
 });
 
 const Input = props => {
-  const { classes, inputObj, id, handleChange, handleValidation, ...rest } = props;
+  const { classes, inputObj, id, handleChange, handleValidation, children, ...rest } = props;
 
   return(
     <TextField
@@ -40,7 +39,7 @@ const Input = props => {
       onChange={handleChange(id)}
       onBlur={handleValidation(id)}
       {...rest}
-    />
+    > { children } </TextField>
   );
 };
 

@@ -20,7 +20,7 @@ const styles = theme => ({
     padding: 0,
     margin: 0
   },
-  gridContainer: {
+  formContainer: {
     display: 'flex',
     flexWrap: 'wrap',
     padding: 0,
@@ -117,38 +117,44 @@ class CreateAccountForm extends Component {
             <Avatar size="lg" src={userImg} />
             <Divider variant="middle" />
 
-            <form className={classes.gridContainer} autoComplete="off">
-              <GridItem xs={12}>
-                <Typography variant="h6">Personal Information</Typography>
-              </GridItem>
-              <Input
-                id="firstName"
-                inputObj={bookingForm.firstName}
-                handleChange={this.handleChange}
-                handleValidation={this.handleInputValidation}/>
-              <Input
-                id="lastName"
-                inputObj={bookingForm.lastName}
-                handleChange={this.handleChange}
-                handleValidation={this.handleInputValidation}/>
-              <Input
-                id="phoneNumber"
-                inputObj={bookingForm.phoneNumber}
-                handleChange={this.handleChange}
-                handleValidation={this.handleInputValidation}/>
-              <GridItem xs={12}>
-                <Typography variant="h6">Credentials</Typography>
-              </GridItem>
-              <Input
-                id="email"
-                inputObj={bookingForm.email}
-                handleChange={this.handleChange}
-                handleValidation={this.handleInputValidation}/>
-              <Input
-                id="passWord"
-                inputObj={bookingForm.password}
-                handleChange={this.handleChange}
-                handleValidation={this.handleInputValidation}/>
+            <form className={classes.formContainer} autoComplete="off">
+              <GridContainer direction="row" justify="space-evenly" alignItems="stretch">
+                <GridItem xs={12}>
+                  <Typography variant="h6">Personal Information</Typography>
+                </GridItem>
+                <GridItem xs={12}>
+                  <Input
+                    id="firstName"
+                    inputObj={bookingForm.firstName}
+                    handleChange={this.handleChange}
+                    handleValidation={this.handleInputValidation}/>
+                  <Input
+                    id="lastName"
+                    inputObj={bookingForm.lastName}
+                    handleChange={this.handleChange}
+                    handleValidation={this.handleInputValidation}/>
+                  <Input
+                    id="phoneNumber"
+                    inputObj={bookingForm.phoneNumber}
+                    handleChange={this.handleChange}
+                    handleValidation={this.handleInputValidation}/>
+                </GridItem>
+                <GridItem xs={12}>
+                  <Typography variant="h6">Credentials</Typography>
+                </GridItem>
+                <GridItem xs={12}>
+                  <Input
+                    id="email"
+                    inputObj={bookingForm.email}
+                    handleChange={this.handleChange}
+                    handleValidation={this.handleInputValidation}/>
+                  <Input
+                    id="passWord"
+                    inputObj={bookingForm.password}
+                    handleChange={this.handleChange}
+                    handleValidation={this.handleInputValidation}/>
+                </GridItem>
+              </GridContainer>
             </form>
 
             <Divider />
